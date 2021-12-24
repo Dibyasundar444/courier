@@ -19,7 +19,7 @@ export default function ConfirmInfoScreen(){
             <View style={{marginTop:20,marginLeft:20}}>
                 <View style={{flexDirection:"row"}}>
                     <View style={{marginTop:10}}>
-                        <Ionicons name="md-location-sharp" size={24} color="#eda81c" />
+                        <Ionicons name="md-location-sharp" size={24} color="#fdb915" />
                     </View>
                     <View style={{marginLeft:30}}>
                         <View>
@@ -38,7 +38,7 @@ export default function ConfirmInfoScreen(){
                 </View>
                 <View style={{flexDirection:"row",marginTop:20}}>
                     <View style={{marginTop:10}}>
-                        <FontAwesome name="location-arrow" size={24} color="#eda81c" />
+                        <FontAwesome name="location-arrow" size={24} color="#fdb915" />
                     </View>
                     <View style={{marginLeft:30}}>
                         <View>
@@ -69,8 +69,8 @@ export default function ConfirmInfoScreen(){
                         style={{flexDirection:"row",alignItems:"center"}}
                         onPress={()=>alert("working")}
                     >
-                        <FontAwesome name="location-arrow" size={18} color="#eda81c" />
-                        <Text style={{color:"#eda81c",fontWeight:"bold",marginLeft:5}}>View in Map</Text>
+                        <FontAwesome name="location-arrow" size={18} color="#fdb915" />
+                        <Text style={{color:"#fdb915",fontWeight:"bold",marginLeft:5}}>View in Map</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -148,10 +148,10 @@ const styles = StyleSheet.create({
         borderWidth:0.1
     },
     setIndex: {
-        backgroundColor: "#eda81c",
+        backgroundColor: "#fdb915",
     },
     proceed: {
-        backgroundColor:"#eda81c",
+        backgroundColor:"#fdb915",
         marginTop:30,
         height:40,
         borderRadius:20,

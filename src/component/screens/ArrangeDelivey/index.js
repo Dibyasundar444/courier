@@ -61,19 +61,19 @@ export default function ArrangeDelivery({navigation}){
                 <View style={{alignItems:"center",flex:0.25}}>
                     <TouchableOpacity style={[styles.button,{backgroundColor: activeIndex === 0 ? "#fff" : "#cca15c",marginTop:40}]}
                         onPress={()=>segmentClicked(0)} active={activeIndex == 0}>
-                        <Ionicons name="md-location-sharp" color={"#eda81c"} size={24} />
+                        <Ionicons name="md-location-sharp" color={"#fdb915"} size={24} />
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.button,{backgroundColor: activeIndex === 1 ? "#fff" : "#cca15c",marginTop:20}]}
                         onPress={()=>segmentClicked(1)} active={activeIndex == 1}>
-                        <FontAwesome name="location-arrow" color={"#eda81c"} size={24} />
+                        <FontAwesome name="location-arrow" color={"#fdb915"} size={24} />
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.button,{backgroundColor: activeIndex === 2 ? "#fff" : "#cca15c",marginTop:20}]}
                     onPress={()=>segmentClicked(2)} active={activeIndex == 2}>
-                        <SimpleLineIcons name="handbag" color={"#eda81c"} size={20} />
+                        <SimpleLineIcons name="handbag" color={"#fdb915"} size={20} />
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.button,{backgroundColor: activeIndex === 3 ? "#fff" : "#cca15c",marginTop:20}]}
                     onPress={()=>segmentClicked(3)} active={activeIndex == 3}>
-                        <Foundation name="clipboard-notes" color={"#eda81c"} size={28} />
+                        <Foundation name="clipboard-notes" color={"#fdb915"} size={28} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.renderItems}>
@@ -87,7 +87,7 @@ export default function ArrangeDelivery({navigation}){
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        backgroundColor: "#eda81c",
+        backgroundColor: "#fdb915",
     },
     button: {
         height:50,

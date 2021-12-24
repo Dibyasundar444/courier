@@ -7,24 +7,27 @@ const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
 
 
-export default function DropScreen({props}){
-    const [text, setText] = useState("");
+export default function RenderScreen({
+    headerInputPlaceholder,location,starfieldPlaceholder,namePlaceholder,
+    numberplaceholder,headerInput,starfeldInput,numberInput,nameInput,
+    setHeaderInput,setStarfeldInput,setNumberInput,setNameInput}) {
+
     return(
         <View style={{overflow:"hidden",borderTopLeftRadius:20}}>
             <MapView style={styles.map} />
             <View style={styles.view1}>
                 <View style={{marginLeft:10}}>
-                    <Ionicons name="md-location-sharp" size={20} color={"#fdb915"} />
+                    <Ionicons name="md-location-sharp" size={20} color="#fdb915" />
                 </View>
-                <View>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={setText}
-                        value={text}
-                        placeholder="Enter Drop..."
-                        multiline={true}
-                    />
-                </View>
+                <TextInput
+                    style={[styles.input,{width:width/2.5}]}
+                    onChangeText={setHeaderInput}
+                    value={headerInput}
+                    placeholder={headerInputPlaceholder}
+                    multiline={true}
+                    placeholderTextColor="#000"
+                />
+                <Ionicons name="search" size={20} color="gray" />
             </View>
             <View>
                 <View style={styles.view3}>
@@ -32,55 +35,58 @@ export default function DropScreen({props}){
                         <FontAwesome name="location-arrow" color={"#fdb915"} size={22}/>
                     </View>
                     <View style={{marginRight:80}}>
-                        <Text style={{flexWrap:"wrap"}}>2020,hbuihgghg,tryfhfuytwt2020,hbuihgghg</Text>
+                        <Text style={{flexWrap:"wrap"}}>{location}</Text>
                     </View>
                 </View>
                 <View style={{}}>
                     <View style={{marginHorizontal:20,marginTop:20}}>
-                        <View style={[styles.subView1,{backgroundColor:"#e8e4e3"}]}>
+                        <View style={[styles.subView1,{backgroundColor:"#f2f1ed"}]}>
                             <View style={{marginRight:10,marginLeft:20}}>
                                 <Entypo name="star" color={"#fdb915"} size={20}/>
                             </View>
                             <View>
                                 <TextInput
                                     style={styles.input}
-                                    onChangeText={setText}
-                                    value={text}
-                                    placeholder="City Garden"
+                                    onChangeText={setStarfeldInput}
+                                    value={starfeldInput}
+                                    placeholder={starfieldPlaceholder}
+                                    placeholderTextColor="#000"
                                 />
                             </View>
                         </View>
-                        <View style={[styles.subView1,{marginTop:10,backgroundColor:"#e8e4e3"}]}>
+                        <View style={[styles.subView1,{marginTop:10,backgroundColor:"#f2f1ed"}]}>
                             <View style={{marginRight:10,marginLeft:20}}>
                                 <MaterialIcons  name="person" size={22} color="#fdb915" />
                             </View>
                             <View>
                                 <TextInput
-                                    style={styles.input1}
-                                    onChangeText={setText}
-                                    value={text}
-                                    placeholder="Name of Person"
+                                    style={[styles.input1,{paddingLeft:10}]}
+                                    onChangeText={setNameInput}
+                                    value={nameInput}
+                                    placeholder={namePlaceholder}
+                                    placeholderTextColor="#000"
                                 />
                             </View>
-                            <MaterialCommunityIcons  name="contacts" size={22} color="#fdb915" />
+                            <MaterialCommunityIcons name="contacts" size={22} color="#fdb915" />
                         </View>
-                        <View style={[styles.subView1,{marginTop:10,backgroundColor:"#e8e4e3"}]}>
+                        <View style={[styles.subView1,{marginTop:10,backgroundColor:"#f2f1ed"}]}>
                             <View style={{marginRight:10,marginLeft:20}}>
                                 <Zocial name="call" size={22} color="#fdb915" />
                             </View>
                             <View>
                                 <TextInput
                                     style={styles.input}
-                                    onChangeText={setText}
-                                    value={text}
-                                    placeholder="Contact Number"
+                                    onChangeText={setNumberInput}
+                                    value={numberInput}
+                                    placeholder={numberplaceholder}
                                     keyboardType="number-pad"
+                                    placeholderTextColor="#000"
                                 />
                             </View>
                         </View>
                         <View style={{alignItems:"flex-end"}}>
-                            <TouchableOpacity style={styles.continue} onPress={props}>
-                                <Text style={{color:"#fff",fontSize:16}}>Continue ↓</Text>
+                            <TouchableOpacity style={styles.continue} onPress={()=>{}}>
+                                <Text style={{color:"#fff",fontSize:16}}>Save Addresses</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -95,7 +101,7 @@ const styles = StyleSheet.create({
         height: 60,
         fontSize:16,
         marginRight:50,
-        paddingLeft:10
+        paddingLeft:10,
     },
     input1: {
         height: 60,
@@ -128,11 +134,6 @@ const styles = StyleSheet.create({
         width:width/1.4
 
     },
-    view2: {
-        elevation:5,borderRadius:10,
-        opacity:0.99,
-        backgroundColor:"#ebebeb"
-    },
     subView2: {
         marginLeft:10,
         marginVertical:10,
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
       view3: {
         borderTopRightRadius:25,
         borderTopLeftRadius:25,
-        backgroundColor:"#e8e4e3",
+        backgroundColor:"#f2f1ed",
         marginTop:-20,
         flexDirection:"row",
         paddingVertical:20,

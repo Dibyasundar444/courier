@@ -128,7 +128,7 @@ function Untitled({ navigation }) {
         <View style={styles.buttonRowFiller}></View>
         <View style={styles.rect3}>
           <View style={styles.image3Filler}></View>
-          <TouchableOpacity onPress={() => navigation.navigate("logs")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Account")}>
             <Image
               source={require("../image/ic_profile.png")}
               resizeMode="contain"

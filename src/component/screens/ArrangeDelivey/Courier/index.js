@@ -42,7 +42,7 @@ export default function CourierScreen(){
                 <View style={{flexDirection:"row",justifyContent:"space-evenly"}}>
                     <View style={{alignItems:"center"}}>
                         <View style={{flexDirection:"row"}}>
-                            <AntDesign name="arrowup" size={18} color="#eda81c" />
+                            <AntDesign name="arrowup" size={18} color="#fdb915" />
                             <Text style={{marginLeft:10}}>Height</Text>
                         </View>
                         <View>
@@ -52,7 +52,7 @@ export default function CourierScreen(){
                     <View style={{borderWidth:2,borderColor:"#e8e4e3"}}/>
                     <View style={{alignItems:"center"}}>
                         <View style={{flexDirection:"row"}}>
-                            <AntDesign name="arrowright" size={18} color="#eda81c" />
+                            <AntDesign name="arrowright" size={18} color="#fdb915" />
                             <Text style={{marginLeft:10}}>Width</Text>
                         </View>
                         <View>
@@ -62,7 +62,7 @@ export default function CourierScreen(){
                     <View style={{borderWidth:2,borderColor:"#e8e4e3"}}/>
                     <View style={{alignItems:"center"}}>
                         <View style={{flexDirection:"row"}}>
-                            <MaterialCommunityIcons name="arrow-left-right" size={18} color="#eda81c" />
+                            <MaterialCommunityIcons name="arrow-left-right" size={18} color="#fdb915" />
                             <Text style={{marginLeft:10}}>Length</Text>
                         </View>
                         <View>
@@ -156,10 +156,10 @@ const styles = StyleSheet.create({
         borderWidth:0.1
     },
     setIndex: {
-        backgroundColor: "#eda81c",
+        backgroundColor: "#fdb915",
     },
     continue: {
-        backgroundColor:"#eda81c",
+        backgroundColor:"#fdb915",
         marginTop:20,
         height:40,
         borderRadius:20,
