@@ -27,10 +27,13 @@
     "react-country-flag": "^2.3.0",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+    "react-native-btr": "^2.1.2",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-image-crop-picker": "^0.36.2",
+    "react-native-maps": "0.27.1",
     "react-native-otp-verify": "^1.0.4",
     "react-native-paper": "^4.9.2",
+    "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "~2.1.0",
     "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "3.2.0",
@@ -42,8 +45,7 @@
     "react-native-web": "^0.17.1",
     "react-native-web-swiper": "^2.2.1",
     "react-otp-input": "^2.4.0",
-    "rn-range-slider": "^2.0.4",
-    "react-native-maps": "0.27.1"
+    "rn-range-slider": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

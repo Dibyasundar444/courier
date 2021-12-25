@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { View, Text, TextInput, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import { Ionicons, Entypo, FontAwesome, AntDesign } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
+import RBSheet from "react-native-raw-bottom-sheet";
+import BottmSheet_item from "./BottomSheet_items";
+
+
 
 
 const { height } = Dimensions.get("window");
@@ -9,6 +14,9 @@ const { width } = Dimensions.get("window");
 
 
 export default function ConfirmInfoScreen(){
+
+    const refRBSheet = useRef();
+    const navigation = useNavigation();
 
     // const [index, setIndex] = useState(0);
     // const [text, setText] = useState("");
@@ -22,18 +30,10 @@ export default function ConfirmInfoScreen(){
                         <Ionicons name="md-location-sharp" size={24} color="#fdb915" />
                     </View>
                     <View style={{marginLeft:30}}>
-                        <View>
-                            <Text style={{color:"gray"}}>Walmart</Text>
-                        </View>
-                        <View>
-                            <Text style={{fontSize:18}}>Emili Williamson</Text>
-                        </View>
-                        <View>
-                            <Text style={{fontSize:15}}>128 Mott St, New York, Ny</Text>
-                        </View>
-                        <View>
-                            <Text style={{fontSize:15}}>10013, United States</Text>
-                        </View>
+                        <Text style={{color:"gray"}}>Walmart</Text>
+                        <Text style={{fontSize:18}}>Emili Williamson</Text>
+                        <Text style={{fontSize:15}}>128 Mott St, New York, Ny</Text>
+                        <Text style={{fontSize:15}}>10013, United States</Text>
                     </View>
                 </View>
                 <View style={{flexDirection:"row",marginTop:20}}>
@@ -41,18 +41,10 @@ export default function ConfirmInfoScreen(){
                         <FontAwesome name="location-arrow" size={24} color="#fdb915" />
                     </View>
                     <View style={{marginLeft:30}}>
-                        <View>
-                            <Text style={{color:"gray"}}>City Garden</Text>
-                        </View>
-                        <View>
-                            <Text style={{fontSize:18}}>Emili Williamson</Text>
-                        </View>
-                        <View>
-                            <Text style={{fontSize:15}}>128 Mott St, New York, Ny</Text>
-                        </View>
-                        <View>
-                            <Text style={{fontSize:15}}>10013, United States</Text>
-                        </View>
+                        <Text style={{color:"gray"}}>City Garden</Text>
+                        <Text style={{fontSize:18}}>Emili Williamson</Text>
+                        <Text style={{fontSize:15}}>128 Mott St, New York, Ny</Text>
+                        <Text style={{fontSize:15}}>10013, United States</Text>
                     </View>
                 </View>
             </View>
@@ -105,14 +97,30 @@ export default function ConfirmInfoScreen(){
             <View style={{borderWidth:3,borderColor:"#e8e4e3",marginVertical:10}}/>
             <TouchableOpacity 
                 style={{marginHorizontal:20,backgroundColor:"#e8e4e3",borderRadius:30}}
-                onPress={()=>alert("working")}
+                onPress={()=>refRBSheet.current.open()}
             >
+                <RBSheet
+                    ref={refRBSheet}
+                    closeOnDragDown={true}
+                    closeOnPressMask={true}
+                    height={height/1.8}
+                    customStyles={{
+                    draggableIcon: {
+                        backgroundColor: "#fff",
+                    },
+                    container:{
+                        borderTopLeftRadius: 30,
+                    }
+                    }}
+                >
+                    <BottmSheet_item />
+                </RBSheet>
                 <View style={{marginLeft:20,marginVertical:10}}>
                     <Text style={{color:"gray",fontWeight:"bold",fontSize:18}}>Delivery Mode</Text>
                     <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginRight:10}}>
                         <Text style={{fontSize:18}}>Economy</Text>
                         <View style={{flexDirection:"row",alignItems:"center"}}>
-                            <Text style={{fontSize:18,marginRight:10}}>$8.60</Text>
+                            <Text style={{fontSize:18,marginRight:10}}>₹1050.00</Text>
                             <AntDesign name="caretdown" size={22} style={{top:-2}}color="gray" />
                         </View>
                     </View>
@@ -120,7 +128,7 @@ export default function ConfirmInfoScreen(){
                 </View>
             </TouchableOpacity>
             <View style={{alignItems:"flex-end"}}>
-                <TouchableOpacity style={styles.proceed}>
+                <TouchableOpacity style={styles.proceed} onPress={()=>navigation.navigate("payment")}>
                     <Text style={{color:"#fff",fontSize:16}}>Proceed to payment</Text>
                 </TouchableOpacity>
             </View>

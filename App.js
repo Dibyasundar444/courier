@@ -7,7 +7,6 @@ import sign from "./src/component/sign";
 import { NavigationContainer } from "@react-navigation/native";
 import register from "./src/component/register";
 import logo from "./src/component/logo";
-// import { View, Image, Text } from "react-native";
 import ArrangeDelivery from "./src/component/screens/ArrangeDelivey";
 import FoodDelivery from "./src/component/screens/FoodDelivery";
 import Account from "./src/component/screens/Account";
@@ -16,6 +15,9 @@ import LanguageScreen from "./src/component/screens/Account/screens/LanguageScre
 import ContactScreen from "./src/component/screens/Account/screens/ContactScreen";
 import T_C_Screen from "./src/component/screens/Account/screens/T&C_screen";
 import ProfileScreen from "./src/component/screens/Account/screens/ProfileScreen";
+import MyDeliveries from "./src/component/screens/MyDelivery";
+import PaymentScreen from "./src/component/screens/ArrangeDelivey/Payment/PaymentScreen";
+import OrderDetailsScreen from "./src/component/screens/MyDelivery/component/OrderDetailsScreen";
 
 const Stack = createStackNavigator();
 const Mystack = () => {
@@ -36,6 +38,9 @@ const Mystack = () => {
       <Stack.Screen name="Language" component={LanguageScreen} />
       <Stack.Screen name="Contact" component={ContactScreen} />
       <Stack.Screen name="Terms" component={T_C_Screen} />
+      <Stack.Screen name="myDeliveries" component={MyDeliveries} />
+      <Stack.Screen name="payment" component={PaymentScreen} />
+      <Stack.Screen name="OrderDetails" component={OrderDetailsScreen} />
     </Stack.Navigator>
   );
 };
@@ -46,4 +51,4 @@ export default function App() {
       <Mystack />
     </NavigationContainer>
   );
-}
+};

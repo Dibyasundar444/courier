@@ -29,7 +29,7 @@ export default function PickUPScreen(){
                             style={styles.input}
                             onChangeText={setText}
                             value={text}
-                            placeholder="Enter Pickup..."
+                            placeholder="Sender loaction..."
                             multiline={true}
                         />
                     </View>
@@ -48,7 +48,7 @@ export default function PickUPScreen(){
                             >
                                 <Entypo name="home" size={24} color="#fdb915" />
                                 <FontAwesome name={activeIndex==1?"circle":"circle-o"} size={14} color="gray" style={{marginLeft:40}} />
-                                <Text style={{marginLeft:10,color: activeIndex===1 ? "#fdb915": "#000"}}>Home</Text>
+                                <Text style={{marginLeft:10,color: activeIndex == 1 ? "#fdb915": "#000"}}>Home</Text>
                             </TouchableOpacity>
                             <TouchableOpacity 
                                 style={{flexDirection:"row",alignItems:"center",marginVertical:20,marginLeft:3}}
@@ -58,7 +58,7 @@ export default function PickUPScreen(){
                             >
                                 <FontAwesome  name="building-o" size={24} color="#fdb915" />
                                 <FontAwesome name={activeIndex==2?"circle":"circle-o"} size={14} color="gray" style={{marginLeft:42}} />
-                                <Text style={{marginLeft:10,color: activeIndex===2 ? "#fdb915": "#000"}}>Office</Text>
+                                <Text style={{marginLeft:10,color: activeIndex == 2 ? "#fdb915": "#000"}}>Office</Text>
                             </TouchableOpacity>
                             <TouchableOpacity 
                                 style={{flexDirection:"row",alignItems:"center",marginBottom:30}}
@@ -68,7 +68,7 @@ export default function PickUPScreen(){
                             >
                                 <MaterialCommunityIcons  name="warehouse" size={24} color="#fdb915" />
                                 <FontAwesome name={activeIndex==3?"circle":"circle-o"} size={14} color="gray" style={{marginLeft:42}} />
-                                <Text style={{marginLeft:10,color: activeIndex===3 ? "#fdb915": "#000"}}>Other</Text>
+                                <Text style={{marginLeft:10,color: activeIndex == 3 ? "#fdb915": "#000"}}>Other</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

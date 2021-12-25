@@ -21,7 +21,7 @@ export default function DropScreen({props}){
                         style={styles.input}
                         onChangeText={setText}
                         value={text}
-                        placeholder="Enter Drop..."
+                        placeholder="Receiver location..."
                         multiline={true}
                     />
                 </View>

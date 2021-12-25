@@ -10,8 +10,14 @@ const { width } = Dimensions.get("window");
 export default function CourierScreen(){
 
     const [index, setIndex] = useState(0);
-    const [text, setText] = useState("");
     const [switchValue, setSwitchValue] = useState(false);
+    const [Height, setHeight] = useState("");
+    const [width, setWidth] = useState("");
+    const [Length, setLength] = useState("");
+    const [Weight, setWeight] = useState("");
+    const [Price, setPrice] = useState("");
+    const [Info, setInfo] = useState("");
+
 
     const toggle=(value)=>{
         setSwitchValue(value);
@@ -45,8 +51,15 @@ export default function CourierScreen(){
                             <AntDesign name="arrowup" size={18} color="#fdb915" />
                             <Text style={{marginLeft:10}}>Height</Text>
                         </View>
-                        <View>
-                            <Text style={{fontSize:16}}>0.0 cm</Text>
+                        <View style={{flexDirection:"row",alignItems:"center"}}>
+                            <TextInput 
+                                placeholder="00.00"
+                                style={{backgroundColor:"#e8e4e3",borderRadius:5,width:60,paddingLeft:5}}
+                                value={Height}
+                                onChangeText={(value)=>setHeight(value)}
+                                keyboardType="numeric"
+                            />
+                            <Text style={{marginLeft:2,fontSize:12}}>cm</Text>
                         </View>
                     </View>
                     <View style={{borderWidth:2,borderColor:"#e8e4e3"}}/>
@@ -55,41 +68,52 @@ export default function CourierScreen(){
                             <AntDesign name="arrowright" size={18} color="#fdb915" />
                             <Text style={{marginLeft:10}}>Width</Text>
                         </View>
-                        <View>
-                            <Text style={{fontSize:16}}>0.0 cm</Text>
+                        <View style={{flexDirection:"row",alignItems:"center"}}>
+                            <TextInput 
+                                placeholder="00.00"
+                                style={{backgroundColor:"#e8e4e3",borderRadius:5,width:60,paddingLeft:5}}
+                                value={width}
+                                onChangeText={(value)=>setWidth(value)}
+                                keyboardType="numeric"
+                            />
+                            <Text style={{marginLeft:2,fontSize:12}}>cm</Text>
                         </View>
                     </View>
                     <View style={{borderWidth:2,borderColor:"#e8e4e3"}}/>
                     <View style={{alignItems:"center"}}>
                         <View style={{flexDirection:"row"}}>
-                            <MaterialCommunityIcons name="arrow-left-right" size={18} color="#fdb915" />
+                            <AntDesign name="swap" size={20} color="#fdb915" />
                             <Text style={{marginLeft:10}}>Length</Text>
                         </View>
-                        <View>
-                            <Text style={{fontSize:16}}>0.0 cm</Text>
+                        <View style={{flexDirection:"row",alignItems:"center"}}>
+                            <TextInput 
+                                placeholder="00.00"
+                                style={{backgroundColor:"#e8e4e3",borderRadius:5,width:60,paddingLeft:5}}
+                                value={Length}
+                                onChangeText={(value)=>setLength(value)}
+                                keyboardType="numeric"
+                            />
+                            <Text style={{marginLeft:2,fontSize:12}}>cm</Text>
                         </View>
                     </View>
                 </View>
                 <View style={{borderWidth:2,borderColor:"#e8e4e3",marginTop:5}}/>
                 <View style={{flexDirection:"row",alignItems:"center",paddingVertical:50,marginLeft:20}}>
-                    <View>
-                        <Text style={{fontWeight:"bold"}}>Weight</Text>
-                    </View>
+                    <Text style={{fontWeight:"bold"}}>Weight</Text>
                     <View style={{marginLeft:20}}>
                         <TextInput 
-                            placeholder="Weight of package"
+                            placeholder="00.00"
                             style={styles.weight}
-                            value={text}
-                            onChangeText={setText}
+                            value={Weight}
+                            onChangeText={(value)=>setWeight(value)}
                             keyboardType="numeric"
                         />
                     </View>
+                    <Text style={{fontSize:16,marginLeft:10}}>kg</Text>
                 </View>
                 <View style={{borderWidth:2,borderColor:"#e8e4e3"}}/>
                 <View style={{flexDirection:"row",justifyContent:"space-between",paddingVertical:20,marginLeft:10,alignItems:"center"}}>
-                    <View>
-                        <Text style={{fontWeight:"bold"}}>Secure The Package</Text>
-                    </View>
+                    <Text style={{fontWeight:"bold"}}>Secure The Package</Text>
                     <View style={{flexDirection:"row",alignItems:"center"}}>
                         <View>
                             <Text>{ switchValue===true ? `Yes` : `No` }</Text>
@@ -109,18 +133,19 @@ export default function CourierScreen(){
                         <View style={{flexDirection:"row",alignItems:"center",marginBottom:20}}>
                             <Text style={{marginRight:10,color:"gray",fontWeight:"bold"}}>Product Value</Text>
                             <TextInput 
-                                placeholder="value in price"
-                                style={styles.weight}
-                                value={text}
-                                onChangeText={setText}
+                                placeholder="Price"
+                                style={styles.price}
+                                value={Price}
+                                onChangeText={(value)=>setPrice(value)}
                                 keyboardType="numeric"
                             />
+                            <Text style={{fontSize:18,marginLeft:10}}>₹</Text>
                         </View>
                         <TextInput 
                             placeholder="Enter courier info (i.e. thing in package)"
                             style={styles.input}
-                            onChangeText={setText}
-                            value={text}
+                            onChangeText={(value)=>setInfo(value)}
+                            value={Info}
                             multiline={true}
                         />
                     </View>
@@ -168,12 +193,18 @@ const styles = StyleSheet.create({
         paddingHorizontal:15
     },
     weight: {
-        // backgroundColor:"#000",
+        backgroundColor:"#e8e4e3",
         height:40,
-        borderWidth:0.2,
-        // borderColor:"#000"
-        borderRadius:20,
-        paddingHorizontal:10
+        borderRadius:5,
+        paddingHorizontal:10,
+        width:80,
+    },
+    price: {
+        backgroundColor:"#e8e4e3",
+        height:40,
+        borderRadius:5,
+        paddingHorizontal:10,
+        width:100,
     }
   });
   

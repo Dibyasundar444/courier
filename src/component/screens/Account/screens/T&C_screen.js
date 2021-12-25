@@ -14,7 +14,7 @@ export default function T_C_Screen({navigation}){
                 <TouchableOpacity onPress={()=>navigation.goBack()}>
                     <Ionicons name="chevron-back" color={"#fff"} size={38}/>
                 </TouchableOpacity>
-                <Text style={styles.headerTxt}>Contact us</Text>
+                <Text style={styles.headerTxt}>Terms & Conditions</Text>
             </View>
             <View style={styles.body}>
                 <View style={{marginTop:30,marginLeft:20}}>

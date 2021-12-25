@@ -43,7 +43,7 @@ function Untitled({ navigation }) {
               </View>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.button3} onPress={()=>navigation.navigate("FoodDelivery")}>
+          {/* <TouchableOpacity style={styles.button3} onPress={()=>navigation.navigate("FoodDelivery")}>
             <View style={styles.image6Row}>
               <Image
                 source={require("../image/home2.png")}
@@ -74,7 +74,7 @@ function Untitled({ navigation }) {
                 </Text>
               </View>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <View style={styles.rect4Stack}>
             <View style={styles.rect4}>
               <View style={styles.promotionalAdsStackRow}>
@@ -108,7 +108,7 @@ function Untitled({ navigation }) {
       </View>
       <View style={styles.rect}>
         <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("myDeliveries")}>
             <View style={styles.imageFiller}></View>
             <Image
               source={require("../image/ic_feeds.png")}
