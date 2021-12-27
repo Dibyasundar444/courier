@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -10,8 +10,38 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import axios from "axios";
 
-function Untitled({ navigation }) {
+
+
+function Untitled({ navigation, route }) {
+
+  const { email } = route.params;
+
+  const [otp, setOtp] = useState("");
+  const [error, setError] = useState(false);
+
+  const errorHandler =()=>{
+    if(otp==="" | otp.length != 6){
+      setError(true);
+    } else setError(false);
+  };
+
+  const submitHandler=()=>{
+    axios.post("https://digicourierapp.herokuapp.com/user/activation",{"otpcode":otp})
+    .then((resp)=>{
+      if(resp.status === 200){
+        navigation.navigate("sign");
+        console.log(resp.data);
+      }
+      else{
+        setError(true);
+        console.log(resp.status);
+      }
+    })
+  };
+
+
   return (
     <View style={styles.container}>
       <View style={styles.rect3Stack}>
@@ -24,7 +54,7 @@ function Untitled({ navigation }) {
             <Text style={styles.verification}>Verification</Text>
           </View>
           <Text style={styles.loremIpsum}>
-            Enter 6 digit verfication code{"\n"}sent on your given number
+            Enter 6 digit verfication code{"\n"}sent on your given {email}
           </Text>
           <Text
             style={{ color: "white", marginLeft: wp(15), marginTop: hp(5) }}
@@ -40,10 +70,16 @@ function Untitled({ navigation }) {
           <TextInput
             placeholder="Enter 6 digit verification code"
             style={styles.textInput}
-          ></TextInput>
+            value={otp}
+            onChangeText={(val)=>setOtp(val)}
+            onBlur={errorHandler}
+          />
+          {
+            error === true ? <Text style={{color:"red",fontSize:12}}>Invalid OTP</Text> : null
+          }
           <TouchableOpacity
             style={styles.button3}
-            onPress={() => navigation.navigate("register")}
+            onPress={submitHandler}
           >
             <Text style={styles.loremIpsum2}>Continue</Text>
           </TouchableOpacity>

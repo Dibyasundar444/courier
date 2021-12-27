@@ -8,8 +8,10 @@ import {
   Dimensions
 } from "react-native";
 import { Ionicons, Entypo, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-
+import axios from "axios";
 import RenderScreen from "./component/RenderScreen";
+
+
 
 
 const { height } = Dimensions.get("window");
@@ -18,13 +20,31 @@ export default function AddressScreen({navigation}){
 
 
     const [activeIndex, setActiveIndex] = useState(0);
-    const [value, setValue] = useState("");
+    const [home, setHome] = useState("");
+    const [office, setOffice] = useState("");
+    const [other, setOther] = useState("");
 
     const segmentClicked=(index)=>{
         setActiveIndex(index);
     };
     const _renderItem=()=>{
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzk5Njc5YTdmZmI4MDAxNjUyNDEzZSIsImlhdCI6MTY0MDYxMjQ0MSwiZXhwIjoxNjQxMjE3MjQxfQ.pMVin7HxUhVkwCJcWuVEH5smC1xNDiXtjJntUvMl8KI",
+            }
+        };
         if(activeIndex==0){
+            const postData = {
+                "homeAddress": home
+            };
+            const homeAddress=()=>{
+            axios.patch("https://digicourierapp.herokuapp.com/user/update",postData,axiosConfig)
+            .then(res=>{
+                console.log({"homeAdrs":res.data});
+            })
+            .catch(e=>{console.log(e)}) 
+            }
             return(
                 <RenderScreen 
                     headerInputPlaceholder="Home"
@@ -32,17 +52,28 @@ export default function AddressScreen({navigation}){
                     starfieldPlaceholder="City Garden"
                     namePlaceholder="Name of Person"
                     numberplaceholder="Contact number"
-                    headerInput={value}
-                    starfeldInput={value}
-                    nameInput={value}
-                    numberInput={value}
-                    setHeaderInput={setValue}
-                    setStarfeldInput={setValue}
-                    setNumberInput={setValue}
-                    setNameInput={setValue}
+                    headerInput={home}
+                    // starfeldInput={value}
+                    // nameInput={value}
+                    // numberInput={value}
+                    setHeaderInput={setHome}
+                    // setStarfeldInput={setValue}
+                    // setNumberInput={setValue}
+                    // setNameInput={setValue}
+                    onSubmit={homeAddress}
                 />
             )
         } else if(activeIndex==1){
+            const postData = {
+                "officeAddress": office
+            };
+            const officeAddress=()=>{
+            axios.patch("https://digicourierapp.herokuapp.com/user/update",postData,axiosConfig)
+            .then(res=>{
+                console.log({"officeAdrs":res.data});
+            })
+            .catch(e=>{console.log(e)}) 
+            }
             return(
                 <RenderScreen 
                     headerInputPlaceholder="Office"
@@ -50,17 +81,28 @@ export default function AddressScreen({navigation}){
                     starfieldPlaceholder="City Garden"
                     namePlaceholder="Name of Person"
                     numberplaceholder="Contact number"
-                    headerInput={value}
-                    starfeldInput={value}
-                    nameInput={value}
-                    numberInput={value}
-                    setHeaderInput={setValue}
-                    setStarfeldInput={setValue}
-                    setNumberInput={setValue}
-                    setNameInput={setValue}
+                    headerInput={office}
+                    // starfeldInput={value}
+                    // nameInput={value}
+                    // numberInput={value}
+                    setHeaderInput={setOffice}
+                    // setStarfeldInput={setValue}
+                    // setNumberInput={setValue}
+                    // setNameInput={setValue}
+                    onSubmit={officeAddress}
                 />
             )
         } else if(activeIndex==2){
+            const postData = {
+                "otherAddress": other
+            };
+            const otherAddress=()=>{
+            axios.patch("https://digicourierapp.herokuapp.com/user/update",postData,axiosConfig)
+            .then(res=>{
+                console.log({"otherAdrs":res.data});
+            })
+            .catch(e=>{console.log(e)}) 
+            }
             return(
                 <RenderScreen 
                     headerInputPlaceholder="Other"
@@ -68,14 +110,15 @@ export default function AddressScreen({navigation}){
                     starfieldPlaceholder="City Garden"
                     namePlaceholder="Name of Person"
                     numberplaceholder="Contact number"
-                    headerInput={value}
-                    starfeldInput={value}
-                    nameInput={value}
-                    numberInput={value}
-                    setHeaderInput={setValue}
-                    setStarfeldInput={setValue}
-                    setNumberInput={setValue}
-                    setNameInput={setValue}
+                    headerInput={other}
+                    // starfeldInput={value}
+                    // nameInput={value}
+                    // numberInput={value}
+                    setHeaderInput={setOther}
+                    // setStarfeldInput={setValue}
+                    // setNumberInput={setValue}
+                    // setNameInput={setValue}
+                    // onSubmit={otherAddress}
                 />
             )
         }

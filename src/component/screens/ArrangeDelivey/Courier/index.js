@@ -142,7 +142,7 @@ export default function CourierScreen(){
                             <Text style={{fontSize:18,marginLeft:10}}>₹</Text>
                         </View>
                         <TextInput 
-                            placeholder="Enter courier info (i.e. thing in package)"
+                            placeholder="Enter courier info (i.e. things in package)"
                             style={styles.input}
                             onChangeText={(value)=>setInfo(value)}
                             value={Info}

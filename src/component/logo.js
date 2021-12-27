@@ -8,7 +8,7 @@ import {
 const logo = ({ navigation }) => {
   return (
     <View style={{ backgroundColor: "#e0ab24", height: hp("100%") }}>
-      <TouchableOpacity onPress={() => navigation.navigate("sign")}>
+      <TouchableOpacity onPress={() => navigation.navigate("register")}>
         <Image
           source={require("../image/appIcon.png")}
           resizeMode="contain"

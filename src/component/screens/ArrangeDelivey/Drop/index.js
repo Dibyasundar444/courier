@@ -8,10 +8,13 @@ const { width } = Dimensions.get("window");
 
 
 export default function DropScreen({props}){
-    const [text, setText] = useState("");
+    const [drop, setDrop] = useState("");
+    const [input1, setInput1] = useState("");
+    const [name, setName] = useState("");
+    const [number, setNumber] = useState("");
     return(
         <View style={{overflow:"hidden",borderTopLeftRadius:20}}>
-            <MapView style={styles.map} />
+            <MapView style={styles.map} initialRegion={{latitude:22.5726,longitude: 88.3639,latitudeDelta: 0.0922,longitudeDelta: 0.0421}} />
             <View style={styles.view1}>
                 <View style={{marginLeft:10}}>
                     <Ionicons name="md-location-sharp" size={20} color={"#fdb915"} />
@@ -19,8 +22,8 @@ export default function DropScreen({props}){
                 <View>
                     <TextInput
                         style={styles.input}
-                        onChangeText={setText}
-                        value={text}
+                        onChangeText={(val)=>setDrop(val)}
+                        value={drop}
                         placeholder="Receiver location..."
                         multiline={true}
                     />
@@ -44,8 +47,8 @@ export default function DropScreen({props}){
                             <View>
                                 <TextInput
                                     style={styles.input}
-                                    onChangeText={setText}
-                                    value={text}
+                                    onChangeText={(val)=>setInput1(val)}
+                                    value={input1}
                                     placeholder="City Garden"
                                 />
                             </View>
@@ -57,8 +60,8 @@ export default function DropScreen({props}){
                             <View>
                                 <TextInput
                                     style={styles.input1}
-                                    onChangeText={setText}
-                                    value={text}
+                                    onChangeText={(val)=>setName(val)}
+                                    value={name}
                                     placeholder="Name of Person"
                                 />
                             </View>
@@ -71,8 +74,8 @@ export default function DropScreen({props}){
                             <View>
                                 <TextInput
                                     style={styles.input}
-                                    onChangeText={setText}
-                                    value={text}
+                                    onChangeText={(val)=>setNumber(val)}
+                                    value={number}
                                     placeholder="Contact Number"
                                     keyboardType="number-pad"
                                 />

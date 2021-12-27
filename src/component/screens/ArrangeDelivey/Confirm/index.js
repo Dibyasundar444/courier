@@ -59,7 +59,7 @@ export default function ConfirmInfoScreen(){
                     </View>
                     <TouchableOpacity 
                         style={{flexDirection:"row",alignItems:"center"}}
-                        onPress={()=>alert("working")}
+                        onPress={()=>navigation.navigate("Map")}
                     >
                         <FontAwesome name="location-arrow" size={18} color="#fdb915" />
                         <Text style={{color:"#fdb915",fontWeight:"bold",marginLeft:5}}>View in Map</Text>

@@ -9,7 +9,7 @@ const { height } = Dimensions.get("window");
 
 export default function PickUPScreen(){
 
-    const [text, setText] = useState("");
+    const [location, setLocation] = useState("");
     const [activeIndex, setActiveIndex] = useState(0);
 
     const segmentClicked=(index)=>{
@@ -18,7 +18,7 @@ export default function PickUPScreen(){
     
     return(
         <View style={{overflow:"hidden",borderTopLeftRadius:20}}>
-            <MapView style={styles.map} />
+            <MapView style={styles.map} initialRegion={{latitude:22.5726,longitude: 88.3639,latitudeDelta: 0.0922,longitudeDelta: 0.0421}} />
             <View style={{position:"absolute",marginTop:20,marginLeft:10,width:width/1.35}}>
                 <View style={{flexDirection:"row",alignItems:"center",elevation:5,borderRadius:30,opacity:0.99,backgroundColor:"#fff"}}>
                     <View style={{marginRight:10,marginLeft:20}}>
@@ -27,8 +27,8 @@ export default function PickUPScreen(){
                     <View>
                         <TextInput
                             style={styles.input}
-                            onChangeText={setText}
-                            value={text}
+                            onChangeText={(val)=>setLocation(val)}
+                            value={location}
                             placeholder="Sender loaction..."
                             multiline={true}
                         />

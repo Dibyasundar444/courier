@@ -18,6 +18,8 @@ import ProfileScreen from "./src/component/screens/Account/screens/ProfileScreen
 import MyDeliveries from "./src/component/screens/MyDelivery";
 import PaymentScreen from "./src/component/screens/ArrangeDelivey/Payment/PaymentScreen";
 import OrderDetailsScreen from "./src/component/screens/MyDelivery/component/OrderDetailsScreen";
+import MyMap from "./src/component/screens/ArrangeDelivey/Confirm/Map";
+import PickupAssigned from "./src/component/screens/ArrangeDelivey/Payment/PickupAssignedScreen";
 
 const Stack = createStackNavigator();
 const Mystack = () => {
@@ -41,6 +43,8 @@ const Mystack = () => {
       <Stack.Screen name="myDeliveries" component={MyDeliveries} />
       <Stack.Screen name="payment" component={PaymentScreen} />
       <Stack.Screen name="OrderDetails" component={OrderDetailsScreen} />
+      <Stack.Screen name="Map" component={MyMap} />
+      <Stack.Screen name="Pickup Assigned" component={PickupAssigned} />
     </Stack.Navigator>
   );
 };

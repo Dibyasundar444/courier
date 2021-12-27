@@ -8,7 +8,7 @@ import { constData } from './Data.js';
 export default function Account({navigation}) {
     // console.log(Data);
     const [index, setIndex] = useState(0);
-    // console.log(index);
+    const [points, setPoints] = useState("10");
 
     const customAlert = () =>
         Alert.alert(
@@ -41,13 +41,25 @@ export default function Account({navigation}) {
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.subView1}>            
-                <Text style={styles.subView1_text1}>Account</Text>
-                <TouchableOpacity style={styles.subView1_1} onPress={()=>navigation.navigate("Profile")}>
+                <View style={{flexDirection:"row",justifyContent:"space-between"}}>
+                    <Text style={styles.subView1_text1}>Account</Text>
+                    <View style={{marginRight:20,}}>
+                        <Ionicons name="wallet" size={24} color="#000" style={{bottom:-5}} />
+                        <Text style={{color:"#fff",fontSize:10}}>{points}</Text>
+                    </View>
+                </View>
+                <TouchableOpacity style={styles.subView1_1} onPress={()=>navigation.navigate("Profile",{"points": points})}>
                     <Image 
                         source={require("../../../../assets/components/image/profile.jpg")}
                         style={styles.profile}/>
                     <View style={styles.subView1_1_1}>
-                        <Text style={styles.subView1_1_1_text1}>Samantha Smith</Text>
+                        <View style={{flexDirection:"row",alignItems:"center"}}>
+                            <Text style={styles.subView1_1_1_text1}>Samantha Smith</Text>
+                            {/* <View style={{flexDirection:"row"}}> */}
+                                
+                                
+                            {/* </View> */}
+                        </View>
                         <Text style={{color:"#fff"}}>View profile</Text>
                     </View>
                 </TouchableOpacity>

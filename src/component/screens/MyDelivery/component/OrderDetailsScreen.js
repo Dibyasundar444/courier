@@ -40,7 +40,7 @@ export default function OrderDetailsScreen({navigation}){
                     </View>
                 </View>
             </View>
-            <MapView style={styles.map}/>
+            <MapView style={styles.map} initialRegion={{latitude:22.5726,longitude: 88.3639,latitudeDelta: 0.0922,longitudeDelta: 0.0421}} />
             <View style={styles.floatView}>
                 <ScrollView style={{marginBottom:height/1.7}} showsVerticalScrollIndicator={false}>
                     <View style={[styles.floatSubView1,{marginTop:10}]}>

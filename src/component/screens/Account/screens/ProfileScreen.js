@@ -1,37 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Fontisto } from '@expo/vector-icons';
 
 
 const Data = [
     {
         "id": "0",
-        "title": "Full Name",
-        "subTitle": "Samantha Smith"
+        "title": "Full Name"
     },
     {
         "id": "1",
-        "title": "Email Address",
-        "subTitle": "email@address.com"
+        "title": "Email Address" 
     },
     {
         "id": "2",
-        "title": "Phone number",
-        "subTitle": "+1 12345678900"
+        "title": "Phone number"
     }
-]
+];
 
-export default function ProfileScreen({navigation}){
+export default function ProfileScreen({navigation,route}){
 
+    const {points } = route.params;
+
+    const [name, setName] = useState("Samantha Smith");
+    const [email, setEmail] = useState("email@address.com");
+    const [number, setNumber] = useState("+91 1234567890");
+    
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={()=>navigation.goBack()}>
                     <Ionicons name="chevron-back" color={"#fff"} size={38}/>
                 </TouchableOpacity>
-                <View style={{alignItems:"center",flex:0.87}}>
+                <View style={{flexDirection:"row",marginLeft:50,justifyContent:"space-around",flex:0.9}}>
                     <Text style={{fontSize:24,color:"#fff",fontWeight:"bold"}}>My Profile</Text>
+                    <View style={{right:-20}}>
+                        <Ionicons name="wallet" size={24} color="#000" style={{bottom:-5}} onPress={()=>alert("coming soon")} />
+                        <Text style={{color:"#fff",fontSize:10}}>{points}</Text>
+                    </View>
                 </View>
             </View>
             <View style={styles.body}>
@@ -45,7 +52,7 @@ export default function ProfileScreen({navigation}){
                         renderItem={(item)=>(
                             <View key={item.item.id} style={styles.nameView}>
                                 <Text style={styles.title}>{item.item.title}</Text>
-                                <Text style={styles.subTitle}>{item.item.subTitle}</Text>
+                                <Text style={styles.subTitle}>{item.item.id == 0 ? name : item.item.id ==1 ? email : number}</Text>
                                 <View style={styles.line}/>
                             </View>
                         )}

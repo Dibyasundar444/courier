@@ -1,33 +1,46 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from '@expo/vector-icons';
+import axios from 'axios';
 
 
-const constData = [
-    {
-        "id": "0",
-        "title": "Full Name",
-        "subTitle": "Enter Full name"
-    },
-    {
-        "id": "1",
-        "title": "Phone number",
-        "subTitle": "Enter phone number"
-    },
-    {
-        "id": "2",
-        "title": "Your Message",
-        "subTitle": "Enter your message"
-    }
-];
-const txt = "Let us know your fedback,  queries or issue regarding app or features.";
+const txt = "Let us know your feedback,  queries or issue regarding app or features.";
 
 export default function ContactScreen({navigation}){
 
-    const [value1, setValue1] = useState("")
-    const [value2, setValue2] = useState("")
-    const [value3, setValue3] = useState("")
+    const [value1, setValue1] = useState("");
+    const [value2, setValue2] = useState("");
+    const [value3, setValue3] = useState("");
+    const [isUpdated, setIsUpdated] = useState(false);
+
+    var postData = {
+        "name": value1,
+        "phone": value2,
+        "message" : value3
+    };
+      
+    let axiosConfig = {
+    headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzk5Njc5YTdmZmI4MDAxNjUyNDEzZSIsImlhdCI6MTY0MDYxMjQ0MSwiZXhwIjoxNjQxMjE3MjQxfQ.pMVin7HxUhVkwCJcWuVEH5smC1xNDiXtjJntUvMl8KI",
+        }
+    };
+
+    const onSubmit =()=>{
+        if (value1=="" | value2=="" | value3=="") {
+            console.log("plz check input fields")
+        } else {
+            axios.post("https://digicourierapp.herokuapp.com/api/customerfeed",postData,axiosConfig)
+            .then((res)=>{
+                console.log(postData);
+                if(res.status === 200){
+                    console.log(res.data);
+                    setIsUpdated(true);
+                } else console.log({"server error":res});
+            })
+        }
+    };
 
     return(
         <SafeAreaView style={styles.container}>
@@ -38,32 +51,51 @@ export default function ContactScreen({navigation}){
                 <Text style={styles.headerTxt}>Contact us</Text>
             </View>
             <View style={styles.body}>
-                <View style={{marginTop:20,marginLeft:20}}>
-                    <Text style={{fontSize:22,marginRight:20}}>{txt}</Text>
+                <ScrollView style={{marginBottom:50}}>
+                    <View style={{marginTop:20,marginLeft:20}}>
+                        <Text style={{fontSize:22,marginRight:20}}>{txt}</Text>
+                    </View>
+                    <View style={styles.nameView}>
+                        <Text style={styles.title}>Full Name</Text>
+                        <TextInput 
+                            style={styles.subTitle}
+                            placeholder="Enter Full name"
+                            value={value1}
+                            onChangeText={(text)=>setValue1(text)}
+                        />
+                        <View style={styles.line}/>
+                    </View>
+                    <View style={styles.nameView}>
+                        <Text style={styles.title}>Phone number</Text>
+                        <TextInput 
+                            style={styles.subTitle}
+                            placeholder="Enter phone number"
+                            value={value2}
+                            onChangeText={(text)=>setValue2(text)}
+                        />
+                        <View style={styles.line}/>
+                    </View>
+                    <View style={styles.nameView}>
+                        <Text style={styles.title}>Your Message</Text>
+                        <TextInput 
+                            style={styles.subTitle}
+                            placeholder="Enter your message"
+                            value={value3}
+                            onChangeText={(text)=> setValue3(text)}
+                        />
+                        <View style={styles.line}/>
+                    </View>
+                    {isUpdated === true ? <Text style={{color:"blue",fontSize:12,textAlign:"center",marginBottom:20}}>Thank you for your feedback</Text> : null}
+                </ScrollView>
+                <View style={{justifyContent:"flex-end",flex:1}}>
+                    <TouchableOpacity 
+                        style={styles.button}
+                        activeOpacity={0.6}
+                        onPress={onSubmit}
+                    >
+                        <Text style={{color:"#fff",fontWeight:"bold"}}>Send message</Text>
+                    </TouchableOpacity>
                 </View>
-                <FlatList 
-                    data={constData}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={(item)=>(
-                        <View key={item.item.id} style={styles.nameView}>
-                            <Text style={styles.title}>{item.item.title}</Text>
-                            <TextInput 
-                                style={styles.subTitle}
-                                placeholder={item.item.subTitle}
-                                value={item.item.id == 0 ? value1 : item.item.id == 1 ? value2 : value3}
-                                onChangeText={(text)=>{item.item.id == 0 ? setValue1(text) : item.item.id == 1 ? setValue2(text):setValue3(text)}}
-                            />
-                            <View style={styles.line}/>
-                        </View>
-                    )}
-                />
-                <TouchableOpacity 
-                    style={styles.button}
-                    activeOpacity={0.6}
-                    onPress={()=>{}}
-                >
-                    <Text style={{color:"#fff",fontWeight:"bold"}}>Send message</Text>
-                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );
@@ -90,14 +122,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         borderTopLeftRadius: 35,
         flex: 1
-    },
-    profile: {
-        position:"absolute",
-        height: 100,
-        width: 100,
-        borderRadius: 100/2,
-        backgroundColor: "#000",
-        top: -15
     },
     nameView: {
         marginLeft: 20,

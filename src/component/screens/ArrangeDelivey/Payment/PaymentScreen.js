@@ -1,34 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from '@expo/vector-icons';
-import { RadioButton } from 'react-native-paper';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
+
 
 const price = "1050.00";
-const paymentData=[
-    {
-        "id": "0",
-        "title": "Cash on Pickup",
-        "des": "Pay while pick a delivery"
-    },
-    {
-        "id": "1",
-        "title": "Cash on Delivery",
-        "des": "Pay while drop a delivery"
-    },
-    {
-        "id": "2",
-        "title": "Credit/Debit Card",
-        "des": "Pay from your card"
-    },
-    {
-        "id": "3",
-        "title": "UPI payment",
-        "des": "Pay using upi id"
-    }
-];
 export default function PaymentScreen({navigation}){
-    const[checked, setChecked] = useState();
+
+    const[activeIndex, setActiveIndex] = useState();
+
+    const segmentClicked=(index)=>{
+        setActiveIndex(index);
+    };
+
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -39,27 +23,42 @@ export default function PaymentScreen({navigation}){
             </View>
             <View style={styles.body}>
                <View style={{marginLeft:20}}>
-                    <View style={{marginTop:20,marginBottom:20}}>
+                    <View style={{marginVertical:20}}>
                         <Text style={{fontSize:22}}>Amount to pay ₹{price}</Text>
                     </View>
-                    {
-                        paymentData.map(item=>(
-                            <TouchableOpacity style={styles.payment} key={item.id}>
-                                {/* <Entypo name="circle" size={20} color="#fdb915" /> */}
-                                <RadioButton
-                                    value={item.id}                              
-                                    status={checked === item.id ? 'checked' : 'unchecked'}
-                                    onPress={() => setChecked(item.id)}
-                                />
-                                <View style={{marginLeft:30}}>
-                                    <Text style={{fontSize:16}}>{item.title}</Text>
-                                    <Text style={{color:"gray"}}>{item.des}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        ))
-                    }
-               </View>
+                    <TouchableOpacity style={styles.bodeView1_1} active={activeIndex==0} onPress={()=>segmentClicked(0)} activeOpacity={0.6}>
+                        <FontAwesome name={activeIndex==0?"dot-circle-o":"circle-thin"} size={20} color="#fdb915" />
+                        <View style={styles.title}>
+                            <Text style={{fontSize:16}}>Cash on Pickup</Text>
+                            <Text style={{color:"gray"}}>Pay while pick a delivery</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.bodeView1_1} active={activeIndex==1} onPress={()=>segmentClicked(1)} activeOpacity={0.6}>
+                        <FontAwesome name={activeIndex==1?"dot-circle-o":"circle-thin"} size={20} color="#fdb915" />
+                        <View style={styles.title}>
+                            <Text style={{fontSize:16}}>Cash on Delivery</Text>
+                            <Text style={{color:"gray"}}>Pay while drop a delivery</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.bodeView1_1} active={activeIndex==2} onPress={()=>segmentClicked(2)} activeOpacity={0.6}>
+                        <FontAwesome name={activeIndex==2?"dot-circle-o":"circle-thin"} size={20} color="#fdb915" />
+                        <View style={styles.title}>
+                            <Text style={{fontSize:16}}>Debit/Credit card</Text>
+                            <Text style={{color:"gray"}}>Pay from your card</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.bodeView1_1} active={activeIndex==3} onPress={()=>segmentClicked(3)} activeOpacity={0.6}>
+                        <FontAwesome name={activeIndex==3?"dot-circle-o":"circle-thin"} size={20} color="#fdb915" />
+                        <View style={styles.title}>
+                            <Text style={{fontSize:16}}>UPI payment</Text>
+                            <Text style={{color:"gray"}}>Pay using upi id</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
+            <TouchableOpacity style={styles.proceed} activeOpacity={0.6} onPress={()=>navigation.navigate("Pickup Assigned")}>
+                <Text style={styles.txtProceed}>Proceed to Payment</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     );
 };
@@ -85,9 +84,26 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 35,
         flex: 1
     },
-    payment: {
-        flexDirection:"row",
+    proceed:{
+        borderTopRightRadius:30,
+        backgroundColor:"#fdb915",
+        justifyContent:"center",
         alignItems:"center",
-        marginBottom:30
+        position:"absolute",
+        bottom:0,
+        width:"100%"
+    },
+    txtProceed: {
+        color:"#fff",
+        fontWeight:"bold",
+        marginVertical:15
+    },
+    title: {
+        marginLeft:30,
+        marginTop:20
+    },
+    bodeView1_1: {
+        flexDirection:"row",
+        alignItems:"center"
     }
 });

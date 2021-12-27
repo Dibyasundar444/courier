@@ -10,11 +10,11 @@ const { width } = Dimensions.get("window");
 export default function RenderScreen({
     headerInputPlaceholder,location,starfieldPlaceholder,namePlaceholder,
     numberplaceholder,headerInput,starfeldInput,numberInput,nameInput,
-    setHeaderInput,setStarfeldInput,setNumberInput,setNameInput}) {
+    setHeaderInput,setStarfeldInput,setNumberInput,setNameInput,onSubmit}) {
 
     return(
         <View style={{overflow:"hidden",borderTopLeftRadius:20}}>
-            <MapView style={styles.map} />
+            <MapView style={styles.map} initialRegion={{latitude:22.5726,longitude: 88.3639,latitudeDelta: 0.0922,longitudeDelta: 0.0421}} />
             <View style={styles.view1}>
                 <View style={{marginLeft:10}}>
                     <Ionicons name="md-location-sharp" size={20} color="#fdb915" />
@@ -85,7 +85,7 @@ export default function RenderScreen({
                             </View>
                         </View>
                         <View style={{alignItems:"flex-end"}}>
-                            <TouchableOpacity style={styles.continue} onPress={()=>{}}>
+                            <TouchableOpacity style={styles.continue} onPress={onSubmit}>
                                 <Text style={{color:"#fff",fontSize:16}}>Save Addresses</Text>
                             </TouchableOpacity>
                         </View>

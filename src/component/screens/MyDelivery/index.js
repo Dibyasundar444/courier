@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, FontAwesome, SimpleLineIcons, Foundation } from '@expo/vector-icons';
 import Modal from "./component/Component";
@@ -16,7 +16,7 @@ export default function MyDeliveries({navigation}){
                     <Text style={{fontSize:24,color:"#fff",fontWeight:"bold"}}>My Deliveries</Text>
                 </View>
             </View>
-            <View style={styles.body}>
+            <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
                 <View style={{marginTop:20,marginHorizontal:10}}>
                     <View style={{marginLeft:10,marginBottom:10}}>
                         <Text style={{fontSize:16,color:"gray",fontWeight:"bold"}}>Pending Deliveries</Text>
@@ -37,8 +37,29 @@ export default function MyDeliveries({navigation}){
                             />
                         ))
                     }
+                </View>
+                <View style={{marginVertical:20,marginHorizontal:10}}>
+                    <View style={{marginLeft:10,marginBottom:10}}>
+                        <Text style={{fontSize:16,color:"gray",fontWeight:"bold"}}>Past Deliveries</Text>
+                    </View>
+                    {
+                        modalData.map(item=>(
+                            <Modal 
+                                key={item.id}
+                                imgSrc={item.id == 0 ? require("../../../image/home1.png") : require("../../../image/home2.png")}
+                                type={item.type}
+                                status={item.status}
+                                price={item.price}
+                                sender={item.sender}
+                                receiver={item.receiver}
+                                date={item.date}
+                                time={item.time}
+                                isPressed={()=>navigation.navigate("OrderDetails",{"key": item.id,"type": item.type,"status": item.status,"price": item.price,"date": item.date,"time": item.time})}
+                            />
+                        ))
+                    }
                 </View>    
-            </View>
+            </ScrollView>
         </SafeAreaView>
     );
 };
@@ -46,7 +67,8 @@ export default function MyDeliveries({navigation}){
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fdb915"
+        backgroundColor: "#fdb915",
+        // overflow:"hidden"
     },
     header: {
         alignItems:"center",
@@ -59,7 +81,8 @@ const styles = StyleSheet.create({
     body: {
         backgroundColor: "#e8e4e3",
         borderTopLeftRadius: 35,
-        flex: 1
+        // overflow:"hidden",
+        flex: 1,
     },
     profile: {
         position:"absolute",
