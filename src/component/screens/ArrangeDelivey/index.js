@@ -12,7 +12,7 @@ import PickUPScreen from "./PickUp";
 import DropScreen from "./Drop";
 import CourierScreen from "./Courier";
 import ConfirmInfoScreen from "./Confirm";
-
+import axios from "axios";
 
 const { height } = Dimensions.get("window")
 
@@ -20,6 +20,57 @@ export default function ArrangeDelivery({navigation}){
 
 
     const [activeIndex, setActiveIndex] = useState(0);
+    const [rname, setRname] = useState("");
+    const [rnumber, setRnumber] = useState("");
+    //post data -->
+    const [slocation, setSlocation] = useState("");
+    const [activeAddress, setActiveAddress] = useState(0);
+    const [rlocation, setRlocation] = useState("");
+    const [cType, setCType] = useState("Envelope");
+    const [Height, setHeight] = useState("");
+    const [width, setWidth] = useState("");
+    const [Length, setLength] = useState("");
+    const [Weight, setWeight] = useState("");
+    const [switchValue, setSwitchValue] = useState(false);
+    const [Price, setPrice] = useState("");
+    const [Info, setInfo] = useState("");
+    const[delMode, setDelMode] = useState("Usual");
+    //<--
+    const postData={
+        "addresstodeli": rlocation,
+        "SedndingAddress": slocation,
+        "Distance":"",
+        "Length": Number(Length),
+        "Width": Number(width),
+        "Height": Number(Height),
+        "CourierType": cType,
+        "secureProduct": switchValue,
+        "CourierInfo": Info,
+        "deliveryMode": delMode,
+        "Price": Number(Price)
+    };
+    let axiosConfig = {
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzk5Njc5YTdmZmI4MDAxNjUyNDEzZSIsImlhdCI6MTY0MDYxMjQ0MSwiZXhwIjoxNjQxMjE3MjQxfQ.pMVin7HxUhVkwCJcWuVEH5smC1xNDiXtjJntUvMl8KI",
+            }
+    };
+
+    const onSubmit=()=>{
+        // navigation.navigate("payment");
+        if(slocation=="" | rlocation=="" | Height=="" | width=="" | Length=="" | Weight=="" | Price=="" | Price==0){
+            alert("please enter the details")
+        } else {
+            axios.post("https://digicourierapp.herokuapp.com/api/product",postData,axiosConfig)
+            .then(res=>{
+                if(res.status==200){
+                    console.log(postData);
+                    navigation.navigate("payment");
+                } else console.log(res.status);               
+            })
+            .catch(e=>console.log(e))
+        }
+    };
 
     const segmentClicked=(index)=>{
         setActiveIndex(index);
@@ -27,19 +78,66 @@ export default function ArrangeDelivery({navigation}){
     const _renderItem=()=>{
         if(activeIndex==0){
             return(
-                <PickUPScreen />
+                <PickUPScreen
+                    location={slocation}
+                    setLocation={setSlocation}
+                    activeIndex={activeAddress}
+                    setActiveIndex={setActiveAddress}
+                    next={()=>segmentClicked(1)}
+                />
             )
         } else if(activeIndex==1){
             return(
-                <DropScreen />
+                <DropScreen
+                    drop={rlocation}
+                    setDrop={setRlocation}
+                    name={rname}
+                    number={rnumber}
+                    setName={setRname}
+                    setNumber={setRnumber}
+                    next={()=>segmentClicked(2)}
+                />
             )
         } else if(activeIndex==2){
             return(
-                <CourierScreen />
+                <CourierScreen 
+                    cType={cType}
+                    Height={Height}
+                    Weight={Weight}
+                    width={width}
+                    Length={Length}
+                    switchValue={switchValue}
+                    Price={Price}
+                    Info={Info}
+                    setCType={setCType}
+                    setHeight={setHeight}
+                    setWidth={setWidth}
+                    setLength={setLength}
+                    setWeight={setWeight}
+                    setSwitchValue={setSwitchValue}
+                    setPrice={setPrice}
+                    setInfo={setInfo}
+                    next={()=>segmentClicked(3)}
+
+                />
             )
         } else if(activeIndex==3){
             return(
-                <ConfirmInfoScreen />
+                <ConfirmInfoScreen 
+                    delMode={delMode}
+                    setDelMode={setDelMode}
+                    onSubmit={onSubmit}
+                    sLocation={slocation}
+                    rLocation={rlocation}
+                    courierType={cType}
+                    secured={switchValue===true?"Yes":"No"}
+                    cHeight={Height}
+                    cInfo={Info}
+                    cLength={Length}
+                    cWidth={width}
+                    cWeight={Weight}
+                    rName={rname}
+                />
             )
         }
     };
@@ -51,8 +149,8 @@ export default function ArrangeDelivery({navigation}){
                     <Ionicons name="chevron-back" color={"#fff"} size={38}/>
                 </TouchableOpacity>
                 <View style={{flex:1,alignItems:"center"}}>
-                   {activeIndex === 0 ? <Text style={{color:"#fff",fontSize:28}}>Pickup Location</Text> : null}
-                   {activeIndex === 1 ? <Text style={{color:"#fff",fontSize:28}}>Drop Location</Text> : null}
+                   {activeIndex === 0 ? <Text style={{color:"#fff",fontSize:28}}>Sender Location</Text> : null}
+                   {activeIndex === 1 ? <Text style={{color:"#fff",fontSize:28}}>Receiver Location</Text> : null}
                    {activeIndex === 2 ? <Text style={{color:"#fff",fontSize:28}}>Courier Info</Text> : null}
                    {activeIndex === 3 ? <Text style={{color:"#fff",fontSize:28}}>Confirm Info</Text> : null}
                 </View>
@@ -103,4 +201,4 @@ const styles = StyleSheet.create({
         marginTop:20,
         borderTopLeftRadius:20
     }
-})
+});

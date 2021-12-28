@@ -7,11 +7,10 @@ const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
 
 
-export default function DropScreen({props}){
-    const [drop, setDrop] = useState("");
+export default function DropScreen({drop,setDrop,name,setName,number,setNumber,next}){
+
     const [input1, setInput1] = useState("");
-    const [name, setName] = useState("");
-    const [number, setNumber] = useState("");
+    
     return(
         <View style={{overflow:"hidden",borderTopLeftRadius:20}}>
             <MapView style={styles.map} initialRegion={{latitude:22.5726,longitude: 88.3639,latitudeDelta: 0.0922,longitudeDelta: 0.0421}} />
@@ -35,7 +34,7 @@ export default function DropScreen({props}){
                         <FontAwesome name="location-arrow" color={"#fdb915"} size={22}/>
                     </View>
                     <View style={{marginRight:80}}>
-                        <Text style={{flexWrap:"wrap"}}>2020,hbuihgghg,tryfhfuytwt2020,hbuihgghg</Text>
+                        <Text style={{flexWrap:"wrap"}}>{drop==""?`Receiver location` : drop}</Text>
                     </View>
                 </View>
                 <View style={{}}>
@@ -82,7 +81,7 @@ export default function DropScreen({props}){
                             </View>
                         </View>
                         <View style={{alignItems:"flex-end"}}>
-                            <TouchableOpacity style={styles.continue} onPress={props}>
+                            <TouchableOpacity style={styles.continue} onPress={next}>
                                 <Text style={{color:"#fff",fontSize:16}}>Continue ↓</Text>
                             </TouchableOpacity>
                         </View>

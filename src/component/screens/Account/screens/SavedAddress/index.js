@@ -23,6 +23,12 @@ export default function AddressScreen({navigation}){
     const [home, setHome] = useState("");
     const [office, setOffice] = useState("");
     const [other, setOther] = useState("");
+    const [name1, setName1] = useState("");
+    const [name2, setName2] = useState("");
+    const [name3, setName3] = useState("");
+    const [number1, setNumber1] = useState("");
+    const [number2, setNumber2] = useState("");
+    const [number3, setNumber3] = useState("");
 
     const segmentClicked=(index)=>{
         setActiveIndex(index);
@@ -54,12 +60,12 @@ export default function AddressScreen({navigation}){
                     numberplaceholder="Contact number"
                     headerInput={home}
                     // starfeldInput={value}
-                    // nameInput={value}
-                    // numberInput={value}
+                    nameInput={name1}
+                    numberInput={number1}
                     setHeaderInput={setHome}
                     // setStarfeldInput={setValue}
-                    // setNumberInput={setValue}
-                    // setNameInput={setValue}
+                    setNumberInput={setNumber1}
+                    setNameInput={setName1}
                     onSubmit={homeAddress}
                 />
             )
@@ -83,12 +89,12 @@ export default function AddressScreen({navigation}){
                     numberplaceholder="Contact number"
                     headerInput={office}
                     // starfeldInput={value}
-                    // nameInput={value}
-                    // numberInput={value}
+                    nameInput={name2}
+                    numberInput={number2}
                     setHeaderInput={setOffice}
                     // setStarfeldInput={setValue}
-                    // setNumberInput={setValue}
-                    // setNameInput={setValue}
+                    setNumberInput={setNumber2}
+                    setNameInput={setName2}
                     onSubmit={officeAddress}
                 />
             )
@@ -112,12 +118,12 @@ export default function AddressScreen({navigation}){
                     numberplaceholder="Contact number"
                     headerInput={other}
                     // starfeldInput={value}
-                    // nameInput={value}
-                    // numberInput={value}
+                    nameInput={name3}
+                    numberInput={number3}
                     setHeaderInput={setOther}
                     // setStarfeldInput={setValue}
-                    // setNumberInput={setValue}
-                    // setNameInput={setValue}
+                    setNumberInput={setNumber3}
+                    setNameInput={setName3}
                     // onSubmit={otherAddress}
                 />
             )

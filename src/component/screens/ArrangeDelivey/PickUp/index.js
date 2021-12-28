@@ -7,11 +7,9 @@ import MapView from 'react-native-maps';
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
-export default function PickUPScreen(){
+export default function PickUPScreen({location,activeIndex,setLocation,setActiveIndex,next}){
 
-    const [location, setLocation] = useState("");
-    const [activeIndex, setActiveIndex] = useState(0);
-
+    
     const segmentClicked=(index)=>{
         setActiveIndex(index);
     };
@@ -94,7 +92,13 @@ export default function PickUPScreen(){
                         </View>
                     </View>
                 </View>
+                <View style={{alignItems:"flex-end"}}>
+                <TouchableOpacity style={styles.continue} onPress={next}>
+                    <Text style={{color:"#fff",fontSize:16}}>Continue ↓</Text>
+                </TouchableOpacity>
             </View>
+            </View>
+            
         </View>
     );
 };
@@ -108,6 +112,15 @@ const styles = StyleSheet.create({
     map: {
         width: width,
         height: height,
-      },
+    },
+    continue: {
+        backgroundColor:"#fdb915",
+        marginTop:30,
+        height:40,
+        borderRadius:20,
+        alignItems:"center",
+        justifyContent:"center",
+        paddingHorizontal:15
+    }
   });
   

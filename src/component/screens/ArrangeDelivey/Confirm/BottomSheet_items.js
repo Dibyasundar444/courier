@@ -9,19 +9,18 @@ const price3="3050.00";
 
 
 
-export default function BottmSheet_item(){
+export default function BottmSheet_item({delMode,setDelMode,closeSheet}){
 
-    const[activeIndex, setActiveIndex] = useState(0);
     const segmentClicked=(index)=>{
-        setActiveIndex(index);
+        setDelMode(index);
     };
     return(
         <>
             <View style={{flex:1}}>
                 <Text style={styles.view1}>Select Delivery Mode</Text>
                 <View style={styles.view2}>
-                    <TouchableOpacity style={styles.view2_1} active={activeIndex==0} onPress={()=>segmentClicked(0)} activeOpacity={0.6}>
-                        <FontAwesome name={activeIndex==0?"dot-circle-o":"circle-thin"} size={26} color="#fdb915" />
+                    <TouchableOpacity style={styles.view2_1} active={delMode=="Usual"} onPress={()=>segmentClicked("Usual")} activeOpacity={0.6}>
+                        <FontAwesome name={delMode==="Usual" ? "dot-circle-o":"circle-thin"} size={26} color="#fdb915" />
                         <View style={{flexWrap:"wrap",marginLeft:10}}>
                             <Text style={{fontSize:16}}>Usual Delivery</Text>
                             <Text style={styles.des}>Usually takes 2-3 days</Text>
@@ -29,16 +28,16 @@ export default function BottmSheet_item(){
                         </View>
                         <Text style={styles.price}>₹{price1}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.view2_1} active={activeIndex==1} onPress={()=>segmentClicked(1)} activeOpacity={0.6}>
-                        <FontAwesome name={activeIndex==1?"dot-circle-o":"circle-thin"} size={26} color="#fdb915" />
+                    <TouchableOpacity style={styles.view2_1} active={delMode=="Fast"} onPress={()=>segmentClicked("Fast")} activeOpacity={0.6}>
+                        <FontAwesome name={delMode=="Fast" ? "dot-circle-o":"circle-thin"} size={26} color="#fdb915" />
                         <View style={{flexWrap:"wrap",marginLeft:10}}>
                             <Text style={{fontSize:16}}>Fast Delivery</Text>
                             <Text style={styles.des}>Assured 6 hour delivery</Text>
                         </View>
                         <Text style={styles.price}>₹{price2}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.view2_1} active={activeIndex==2} onPress={()=>segmentClicked(2)} activeOpacity={0.6}>
-                        <FontAwesome name={activeIndex==2?"dot-circle-o":"circle-thin"} size={26} color="#fdb915" />
+                    <TouchableOpacity style={styles.view2_1} active={delMode=="Superfast"} onPress={()=>segmentClicked("Superfast")} activeOpacity={0.6}>
+                        <FontAwesome name={delMode=="Superfast" ? "dot-circle-o":"circle-thin"} size={26} color="#fdb915" />
                         <View style={{flexWrap:"wrap",marginLeft:10}}>
                             <Text style={{fontSize:16}}>Superfast Delivery</Text>
                             <Text style={styles.des}>Dedicated delivery boy</Text>
@@ -47,7 +46,7 @@ export default function BottmSheet_item(){
                         <Text style={styles.price}>₹{price3}</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.update} activeOpacity={0.6}>
+                <TouchableOpacity style={styles.update} activeOpacity={0.6} onPress={closeSheet}>
                     <Text style={styles.txtUpdate}>Update</Text>
                 </TouchableOpacity>
             </View>

@@ -13,15 +13,15 @@ const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
 
 
-export default function ConfirmInfoScreen(){
+export default function ConfirmInfoScreen({onSubmit,delMode,setDelMode,sLocation,rLocation,
+    courierType,secured,cHeight,cInfo,cLength,cWidth,cWeight,rName}){
 
     const refRBSheet = useRef();
     const navigation = useNavigation();
 
-    // const [index, setIndex] = useState(0);
-    // const [text, setText] = useState("");
+    
 
-    const categories = ["Envelope", "Box Pack", "Other"];
+
     return(
         <ScrollView style={{marginBottom:100}} showsVerticalScrollIndicator={false}>
             <View style={{marginTop:20,marginLeft:20}}>
@@ -32,8 +32,7 @@ export default function ConfirmInfoScreen(){
                     <View style={{marginLeft:30}}>
                         <Text style={{color:"gray"}}>Walmart</Text>
                         <Text style={{fontSize:18}}>Emili Williamson</Text>
-                        <Text style={{fontSize:15}}>128 Mott St, New York, Ny</Text>
-                        <Text style={{fontSize:15}}>10013, United States</Text>
+                        <Text style={{fontSize:15}}>{sLocation}</Text>
                     </View>
                 </View>
                 <View style={{flexDirection:"row",marginTop:20}}>
@@ -42,9 +41,8 @@ export default function ConfirmInfoScreen(){
                     </View>
                     <View style={{marginLeft:30}}>
                         <Text style={{color:"gray"}}>City Garden</Text>
-                        <Text style={{fontSize:18}}>Emili Williamson</Text>
-                        <Text style={{fontSize:15}}>128 Mott St, New York, Ny</Text>
-                        <Text style={{fontSize:15}}>10013, United States</Text>
+                        <Text style={{fontSize:18}}>{rName}</Text>
+                        <Text style={{fontSize:15}}>{rLocation}</Text>
                     </View>
                 </View>
             </View>
@@ -74,8 +72,8 @@ export default function ConfirmInfoScreen(){
                         <Text style={{color:"gray"}}>Secure Product</Text>
                     </View> 
                     <View style={{flexDirection:"row",justifyContent:"space-between",marginRight:70}}>
-                        <Text>Box Courier</Text>
-                        <Text>No</Text>
+                        <Text>{courierType}</Text>
+                        <Text>{secured}</Text>
                     </View>                    
                 </View>
                 <View style={{marginTop:10}}>
@@ -84,14 +82,13 @@ export default function ConfirmInfoScreen(){
                         <Text style={{color:"gray"}}>Weight</Text>
                     </View> 
                     <View style={{flexDirection:"row",justifyContent:"space-between",marginRight:60}}>
-                        <Text>0 × 0 × 0 (cm)</Text>
-                        <Text>5 kg</Text>
+                        <Text>{cHeight} × {cWidth} × {cLength} (cm)</Text>
+                        <Text>{cWeight} kg</Text>
                     </View>                    
                 </View>
                 <View style={{marginTop:10}}>
                     <Text style={{color:"gray"}}>Courier info</Text>
-                    <Text>Courier info</Text>
-                    <Text>Courier info</Text>
+                    <Text>{cInfo}</Text>
                 </View>
             </View>
             <View style={{borderWidth:3,borderColor:"#e8e4e3",marginVertical:10}}/>
@@ -113,12 +110,16 @@ export default function ConfirmInfoScreen(){
                     }
                     }}
                 >
-                    <BottmSheet_item />
+                    <BottmSheet_item 
+                        delMode={delMode}
+                        setDelMode={setDelMode}
+                        closeSheet={()=>refRBSheet.current.close()}
+                    />
                 </RBSheet>
                 <View style={{marginLeft:20,marginVertical:10}}>
                     <Text style={{color:"gray",fontWeight:"bold",fontSize:18}}>Delivery Mode</Text>
                     <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginRight:10}}>
-                        <Text style={{fontSize:18}}>Economy</Text>
+                        <Text style={{fontSize:18}}>{delMode}</Text>
                         <View style={{flexDirection:"row",alignItems:"center"}}>
                             <Text style={{fontSize:18,marginRight:10}}>₹1050.00</Text>
                             <AntDesign name="caretdown" size={22} style={{top:-2}}color="gray" />
@@ -128,7 +129,7 @@ export default function ConfirmInfoScreen(){
                 </View>
             </TouchableOpacity>
             <View style={{alignItems:"flex-end"}}>
-                <TouchableOpacity style={styles.proceed} onPress={()=>navigation.navigate("payment")}>
+                <TouchableOpacity style={styles.proceed} onPress={onSubmit}>
                     <Text style={{color:"#fff",fontSize:16}}>Proceed to payment</Text>
                 </TouchableOpacity>
             </View>

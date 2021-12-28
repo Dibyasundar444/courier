@@ -7,17 +7,10 @@ const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
 
 
-export default function CourierScreen(){
+export default function CourierScreen({cType,setCType,Height, setHeight,width, setWidth,Length, 
+    setLength,Weight, setWeight,Price, setPrice,Info, setInfo,switchValue, setSwitchValue,next}){
 
-    const [index, setIndex] = useState(0);
-    const [switchValue, setSwitchValue] = useState(false);
-    const [Height, setHeight] = useState("");
-    const [width, setWidth] = useState("");
-    const [Length, setLength] = useState("");
-    const [Weight, setWeight] = useState("");
-    const [Price, setPrice] = useState("");
-    const [Info, setInfo] = useState("");
-
+    
 
     const toggle=(value)=>{
         setSwitchValue(value);
@@ -25,6 +18,7 @@ export default function CourierScreen(){
 
 
     const categories = ["Envelope", "Box Pack", "Other"];
+    
     return(
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{marginBottom:150}}>
@@ -35,10 +29,10 @@ export default function CourierScreen(){
                             {categories.map((item,id)=>(
                                 <TouchableOpacity
                                     key={id}
-                                    onPress={()=>setIndex(id)} 
-                                    style={[styles.index,index === id && styles.setIndex]}   
+                                    onPress={()=>setCType(item)} 
+                                    style={[styles.index,cType === item && styles.setIndex]}   
                                 >
-                                    <Text style={{color:index===id?"#fff":"#000"}}>{item}</Text>
+                                    <Text style={{color:cType === item ?"#fff":"#000"}}>{item}</Text>
                                 </TouchableOpacity>
                             ))}
                         </View>
@@ -151,8 +145,8 @@ export default function CourierScreen(){
                     </View>
                 </View>
                 <View style={{borderWidth:2,borderColor:"#e8e4e3"}}/>
-                <View style={{alignItems:"flex-end"}}>
-                    <TouchableOpacity style={styles.continue}>
+                <View style={{alignItems:"flex-end",marginRight:10}}>
+                    <TouchableOpacity style={styles.continue} onPress={next}>
                         <Text style={{color:"#fff",fontSize:16}}>Continue ↓</Text>
                     </TouchableOpacity>
                 </View>
