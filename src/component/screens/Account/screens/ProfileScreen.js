@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, Fontisto } from '@expo/vector-icons';
@@ -21,11 +21,14 @@ const Data = [
 
 export default function ProfileScreen({navigation,route}){
 
-    const {points } = route.params;
+    const  navigateData  = route.params;
+    // console.log(navigateData);
 
     const [name, setName] = useState("Samantha Smith");
     const [email, setEmail] = useState("email@address.com");
     const [number, setNumber] = useState("+91 1234567890");
+
+    
     
     return(
         <SafeAreaView style={styles.container}>
@@ -37,13 +40,13 @@ export default function ProfileScreen({navigation,route}){
                     <Text style={{fontSize:24,color:"#fff",fontWeight:"bold"}}>My Profile</Text>
                     <View style={{right:-20}}>
                         <Ionicons name="wallet" size={24} color="#000" style={{bottom:-5}} onPress={()=>alert("coming soon")} />
-                        <Text style={{color:"#fff",fontSize:10}}>{points}</Text>
+                        <Text style={{color:"#fff",fontSize:10}}>{navigateData.points}</Text>
                     </View>
                 </View>
             </View>
             <View style={styles.body}>
                 <View style={{alignItems:"center"}}>
-                    <Image style={styles.profile} source={require("../../../../../assets/components/image/profile.jpg")}/>
+                    <Image style={styles.profile} source={{uri: navigateData.profileImg}}/>
                 </View>
                 <View style={{marginTop:50}}>
                     <FlatList 
@@ -52,7 +55,7 @@ export default function ProfileScreen({navigation,route}){
                         renderItem={(item)=>(
                             <View key={item.item.id} style={styles.nameView}>
                                 <Text style={styles.title}>{item.item.title}</Text>
-                                <Text style={styles.subTitle}>{item.item.id == 0 ? name : item.item.id ==1 ? email : number}</Text>
+                                <Text style={styles.subTitle}>{item.item.id == 0 ? navigateData.name : item.item.id ==1 ? navigateData.email : navigateData.phoneNo}</Text>
                                 <View style={styles.line}/>
                             </View>
                         )}
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
         height: 100,
         width: 100,
         borderRadius: 100/2,
-        backgroundColor: "#000",
+        backgroundColor: "gray",
         top: -20
     },
     nameView: {

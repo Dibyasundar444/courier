@@ -4,11 +4,31 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const logo = ({ navigation }) => {
+
+
+  const isUser=async()=>{
+    try {
+        let userData = await AsyncStorage.getItem('jwt')
+        let data = JSON.parse(userData);
+        if(data!=null){
+          navigation.navigate("logss")
+        }else{
+          navigation.navigate("register")
+        }
+      } catch(e) {
+        console.log(e);
+      }
+  };
+  const getStarted=()=>{
+    isUser(navigation.navigate("logss"));  
+  };
+  
   return (
     <View style={{ backgroundColor: "#e0ab24", height: hp("100%") }}>
-      <TouchableOpacity onPress={() => navigation.navigate("register")}>
+      <TouchableOpacity onPress={isUser}>
         <Image
           source={require("../image/appIcon.png")}
           resizeMode="contain"

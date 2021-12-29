@@ -1,14 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialCommunityIcons, Ionicons, Foundation, MaterialIcons, } from '@expo/vector-icons';
 import { constData } from './Data.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function Account({navigation}) {
     // console.log(Data);
     const [index, setIndex] = useState(0);
     const [points, setPoints] = useState("10");
+    const [userData, setUserData] = useState({name:"",profileImg:"",email:"",phone:""});
+
+    useEffect(() => {
+        AsyncStorage.getItem('jwt').then(resp => {
+            if(resp !== null ){
+                const parsed = JSON.parse(resp).user;
+                // console.log(parsed);
+                setUserData({name:parsed.name, profileImg:parsed.profileImg,email:parsed.email,phone:parsed.phoneNo})
+            } else {
+                return null;
+            }
+        }).catch(err => console.log(err));
+    }, []);
+
+    const navigateData={
+        "name": userData.name,
+        "email": userData.email,
+        "phoneNo": userData.phone,
+        "profileImg": userData.profileImg,
+        "points": points
+    };
 
     const customAlert = () =>
         Alert.alert(
@@ -20,7 +42,7 @@ export default function Account({navigation}) {
             onPress: () => console.log("No Pressed"),
             style: "cancel"
             },
-            { text: "Yes", onPress: () => console.log("Yes Pressed") }
+            { text: "Yes", onPress: clickLogOut }
         ]
     );
 
@@ -37,7 +59,10 @@ export default function Account({navigation}) {
         } else if (index==4) {
             console.log(index);
         } else {customAlert()}
-    }
+    };
+    const clickLogOut = async () => {
+        AsyncStorage.removeItem('jwt');
+    };
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.subView1}>            
@@ -48,13 +73,13 @@ export default function Account({navigation}) {
                         <Text style={{color:"#fff",fontSize:10}}>{points}</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.subView1_1} onPress={()=>navigation.navigate("Profile",{"points": points})}>
+                <TouchableOpacity style={styles.subView1_1} onPress={()=>navigation.navigate("Profile",navigateData)}>
                     <Image 
-                        source={require("../../../../assets/components/image/profile.jpg")}
+                        source={{uri:userData.profileImg}}
                         style={styles.profile}/>
                     <View style={styles.subView1_1_1}>
                         <View style={{flexDirection:"row",alignItems:"center"}}>
-                            <Text style={styles.subView1_1_1_text1}>Samantha Smith</Text>
+                            <Text style={styles.subView1_1_1_text1}>{userData.name}</Text>
                             {/* <View style={{flexDirection:"row"}}> */}
                                 
                                 
