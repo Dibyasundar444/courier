@@ -76,15 +76,15 @@ export default function ConfirmInfoScreen({onSubmit,delMode,setDelMode,sLocation
                         <Text>{secured}</Text>
                     </View>                    
                 </View>
-                <View style={{marginTop:10}}>
-                    <View style={{flexDirection:"row",justifyContent:"space-between",marginRight:45}}>
+                <View style={{flexDirection:"row",justifyContent:"space-between",marginRight:10,marginTop:10}}>
+                    <View>
                         <Text style={{color:"gray"}}>Height Width Length</Text>
+                        <Text style={{fontSize:13}}>{cHeight} × {cWidth} × {cLength} (cm)</Text>
+                    </View>
+                    <View>
                         <Text style={{color:"gray"}}>Weight</Text>
-                    </View> 
-                    <View style={{flexDirection:"row",justifyContent:"space-between",marginRight:60}}>
-                        <Text>{cHeight} × {cWidth} × {cLength} (cm)</Text>
                         <Text>{cWeight} kg</Text>
-                    </View>                    
+                    </View>
                 </View>
                 <View style={{marginTop:10}}>
                     <Text style={{color:"gray"}}>Courier info</Text>

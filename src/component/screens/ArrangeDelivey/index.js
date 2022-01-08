@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -13,6 +13,7 @@ import DropScreen from "./Drop";
 import CourierScreen from "./Courier";
 import ConfirmInfoScreen from "./Confirm";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { height } = Dimensions.get("window")
 
@@ -35,7 +36,26 @@ export default function ArrangeDelivery({navigation}){
     const [Price, setPrice] = useState("");
     const [Info, setInfo] = useState("");
     const[delMode, setDelMode] = useState("Usual");
+    const[token, setToken] = useState("");
     //<--
+
+    useEffect(() => {
+        AsyncStorage.getItem('jwt').then(resp => {
+            if(resp !== null ){
+                const parsed = JSON.parse(resp).access_token;
+                setToken(parsed);
+            } else {
+                console.log("token not found");
+            }
+        }).catch(err => console.log(err));
+    }, []);
+
+    let axiosConfig = {
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            "Authorization": token,
+            }
+    };
     const postData={
         "addresstodeli": rlocation,
         "SedndingAddress": slocation,
@@ -49,23 +69,22 @@ export default function ArrangeDelivery({navigation}){
         "deliveryMode": delMode,
         "Price": Number(Price)
     };
-    let axiosConfig = {
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzk5Njc5YTdmZmI4MDAxNjUyNDEzZSIsImlhdCI6MTY0MDYxMjQ0MSwiZXhwIjoxNjQxMjE3MjQxfQ.pMVin7HxUhVkwCJcWuVEH5smC1xNDiXtjJntUvMl8KI",
-            }
-    };
 
+    const navigateData={
+        slocation: slocation,
+        rlocation: rlocation,
+        sname: "",
+        rname: rname,
+    }
     const onSubmit=()=>{
-        // navigation.navigate("payment");
         if(slocation=="" | rlocation=="" | Height=="" | width=="" | Length=="" | Weight=="" | Price=="" | Price==0){
-            alert("please enter the details")
+            alert("please enter the details");
         } else {
-            axios.post("https://digicourierapp.herokuapp.com/api/product",postData,axiosConfig)
+            axios.post(" https://digicourierapp.herokuapp.com/api/product",postData,axiosConfig)
             .then(res=>{
                 if(res.status==200){
                     console.log(postData);
-                    navigation.navigate("payment");
+                    navigation.navigate("payment",navigateData);
                 } else console.log(res.status);               
             })
             .catch(e=>console.log(e))

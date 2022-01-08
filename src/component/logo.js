@@ -11,19 +11,16 @@ const logo = ({ navigation }) => {
 
   const isUser=async()=>{
     try {
-        let userData = await AsyncStorage.getItem('jwt')
+        let userData = await AsyncStorage.getItem('jwt');
         let data = JSON.parse(userData);
         if(data!=null){
-          navigation.navigate("logss")
+          navigation.navigate("logss");
         }else{
-          navigation.navigate("register")
+          navigation.navigate("register");
         }
       } catch(e) {
         console.log(e);
       }
-  };
-  const getStarted=()=>{
-    isUser(navigation.navigate("logss"));  
   };
   
   return (

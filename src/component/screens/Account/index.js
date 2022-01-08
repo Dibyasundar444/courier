@@ -3,26 +3,27 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, Alert } from
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialCommunityIcons, Ionicons, Foundation, MaterialIcons, } from '@expo/vector-icons';
 import { constData } from './Data.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export default function Account({navigation}) {
+export default function Account({navigation,route}) {
     // console.log(Data);
     const [index, setIndex] = useState(0);
     const [points, setPoints] = useState("10");
     const [userData, setUserData] = useState({name:"",profileImg:"",email:"",phone:""});
 
-    useEffect(() => {
-        AsyncStorage.getItem('jwt').then(resp => {
-            if(resp !== null ){
-                const parsed = JSON.parse(resp).user;
-                // console.log(parsed);
-                setUserData({name:parsed.name, profileImg:parsed.profileImg,email:parsed.email,phone:parsed.phoneNo})
-            } else {
-                return null;
-            }
-        }).catch(err => console.log(err));
-    }, []);
+    // const navigateData = route.params;
+
+    // useEffect(() => {
+    //     AsyncStorage.getItem('jwt').then(resp => {
+    //         if(resp !== null ){
+    //             const parsed = JSON.parse(resp).user;
+    //             setUserData({name:parsed.name, profileImg:parsed.profileImg,email:parsed.email,phone:parsed.phoneNo})
+    //         } else {
+    //             return null;
+    //         }
+    //     }).catch(err => console.log(err));
+    // }, []);
 
     const navigateData={
         "name": userData.name,

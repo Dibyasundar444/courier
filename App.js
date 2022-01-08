@@ -33,7 +33,7 @@ const Mystack = () => {
       <Stack.Screen name="register" component={register} />
       <Stack.Screen name="ArrangeDelivery" component={ArrangeDelivery} />
       <Stack.Screen name="FoodDelivery" component={FoodDelivery} />
-      <Stack.Screen name="GroceryDelivery" component={ArrangeDelivery} />
+      {/* <Stack.Screen name="GroceryDelivery" component={ArrangeDelivery} /> */}
       <Stack.Screen name="Account" component={Account} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Adresses" component={AddressScreen} />

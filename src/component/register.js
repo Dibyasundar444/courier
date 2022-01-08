@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -18,7 +19,7 @@ const register = ({ navigation }) => {
   const [error1, setError1] = useState(false);
   const [error2, setError2] = useState(false);
   const [error3, setError3] = useState(false);
-  const [values, setValues] = useState({name:"", email:"", password:"123456", phoneNo:"", profileImg:"qwer", businessCustomer: true})
+  const [values, setValues] = useState({name:"", email:"", password:"123456", phoneNo:"", profileImg:"qwer", businessCustomer: true});
 
   const { name, email, password, phoneNo, profileImg, businessCustomer } = values;
 
@@ -63,111 +64,129 @@ const register = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text
-        style={{
-          marginTop: hp(7),
-          textAlign: "center",
-          color: "#fff",
-          fontSize: 20,
-        }}
-      >
-        Register
-      </Text>
-      <View style={styles.scontainer}>
-        <Text style={{ fontSize: 17, marginHorizontal: 10, marginTop: hp(6) }}>
-          Full Name
-        </Text>
-        <TextInput
-          placeholder="Enter Full name"
-          placeholderTextColor="grey"
+        <Text
           style={{
-            fontSize: 17,
-            marginHorizontal: 10,
-            borderBottomWidth: 1,
-            marginTop: hp(1),
+            marginTop: hp(7),
+            textAlign: "center",
+            color: "#fff",
+            fontSize: 20,
           }}
-          value={name}
-          onChangeText={(val)=>setValues({...values,name: val})}
-          // keyboardType="numeric"
-          onBlur={errorHandler1}
-        />
-        {
-          error1 === true ? <Text style={{color:"red",marginLeft:20,fontSize:12}}>* required field</Text> : null
-        }
-        <Text style={{ fontSize: 17, marginHorizontal: 10, marginTop: hp(3) }}>
-          Email Address
-        </Text>
-        <TextInput
-          placeholder="Enter Email Address"
-          placeholderTextColor="grey"
-          style={{
-            fontSize: 17,
-            marginHorizontal: 10,
-            borderBottomWidth: 1,
-            marginTop: hp(1),
-          }}
-          value={email}
-          onChangeText={(val)=>setValues({...values,email: val})}
-          keyboardType="email-address"
-          onBlur={errorHandler2}
-        />
-        {
-          error2 === true ? <Text style={{color:"red",marginLeft:20,fontSize:12}}>* required field</Text> : null
-        }
-        <Text style={{ fontSize: 17, marginHorizontal: 10, marginTop: hp(3) }}>
-          Are You a Bussiness Customer ?
-        </Text>
-        <View style={{ flexDirection: "row" }}>
-          <View style={styles.containertext}>
-            <RadioButton
-              style={styles.radioCircle}
-              status={businessCustomer == true ? "checked" : "unchecked"}
-              onPress={() => setValues({...values,businessCustomer: true})}
-              color={"#000"}
-            />
-            <Text style={styles.radioText}>yes</Text>
-          </View>
-          <View style={styles.containertext}>
-            <RadioButton
-              style={styles.radioCircle}
-              status={businessCustomer == false ? "checked" : "unchecked"}
-              onPress={() => setValues({...values,businessCustomer: false})}
-              color={"#000"}
-            />
-            <Text style={styles.radioText}>No</Text>
-          </View>
-        </View>
-        <Text style={{ fontSize: 17, marginHorizontal: 10, marginTop: hp(3) }}>
-          Phone Number
-        </Text>
-        <TextInput
-          placeholder="Enter Phone number"
-          placeholderTextColor="grey"
-          style={{
-            fontSize: 17,
-            marginHorizontal: 10,
-            borderBottomWidth: 1,
-            marginTop: hp(1),
-          }}
-          value={phoneNo}
-          onChangeText={(val)=>setValues({...values,phoneNo: val})}
-          keyboardType="numeric"
-          onBlur={errorHandler3}
-        />
-        {
-          error3 === true ? <Text style={{color:"red",marginLeft:20,fontSize:12}}>* required field</Text> : null
-        }
-        <View style={{marginTop:40,flexDirection:"row",marginLeft:10}}>
-          <Text>Already have an account?</Text>
-          <Text style={{marginLeft:20,color:"#e0ab24"}} onPress={()=>navigation.navigate("sign")}>sign in here</Text>
-        </View>
-        <TouchableOpacity
-          style={[styles.button3,{justifyContent:"center",alignItems:"center"}]}
-          onPress={submitHandler}
         >
-          <Text style={styles.loremIpsum2}>Continue</Text>
-        </TouchableOpacity>
-      </View>
+          Register
+        </Text>
+        <View style={styles.scontainer}>
+            <ScrollView style={{marginTop:10}}>
+                <Text style={{ fontSize: 17, marginHorizontal: 10, marginTop: hp(6) }}>
+                  Full Name
+                </Text>
+                <TextInput
+                  placeholder="Enter Full name"
+                  placeholderTextColor="grey"
+                  style={{
+                    fontSize: 17,
+                    marginHorizontal: 10,
+                    borderBottomWidth: 1,
+                    marginTop: hp(1),
+                  }}
+                  value={name}
+                  onChangeText={(val)=>setValues({...values,name: val})}
+                  // keyboardType="numeric"
+                  onBlur={errorHandler1}
+                />
+                {
+                  error1 === true ? <Text style={{color:"red",marginLeft:20,fontSize:12}}>* required field</Text> : null
+                }
+                <Text style={{ fontSize: 17, marginHorizontal: 10, marginTop: hp(3) }}>
+                  Email Address
+                </Text>
+                <TextInput
+                  placeholder="Enter Email Address"
+                  placeholderTextColor="grey"
+                  style={{
+                    fontSize: 17,
+                    marginHorizontal: 10,
+                    borderBottomWidth: 1,
+                    marginTop: hp(1),
+                  }}
+                  value={email}
+                  onChangeText={(val)=>setValues({...values,email: val})}
+                  keyboardType="email-address"
+                  onBlur={errorHandler2}
+                />
+                {
+                  error2 === true ? <Text style={{color:"red",marginLeft:20,fontSize:12}}>* required field</Text> : null
+                }
+                <Text style={{ fontSize: 17, marginHorizontal: 10, marginTop: hp(3) }}>
+                  Password
+                </Text>
+                <TextInput
+                  placeholder="Enter the password"
+                  placeholderTextColor="grey"
+                  style={{
+                    fontSize: 17,
+                    marginHorizontal: 10,
+                    borderBottomWidth: 1,
+                    marginTop: hp(1),
+                  }}
+                  value={password}
+                  onChangeText={(val)=>setValues({...values,password: val})}
+                  // onBlur={{}}
+                />
+                <Text style={{ fontSize: 17, marginHorizontal: 10, marginTop: hp(3) }}>
+                  Are You a Bussiness Customer ?
+                </Text>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={styles.containertext}>
+                    <RadioButton
+                      style={styles.radioCircle}
+                      status={businessCustomer == true ? "checked" : "unchecked"}
+                      onPress={() => setValues({...values,businessCustomer: true})}
+                      color={"#000"}
+                    />
+                    <Text style={styles.radioText}>yes</Text>
+                  </View>
+                  <View style={styles.containertext}>
+                    <RadioButton
+                      style={styles.radioCircle}
+                      status={businessCustomer == false ? "checked" : "unchecked"}
+                      onPress={() => setValues({...values,businessCustomer: false})}
+                      color={"#000"}
+                    />
+                    <Text style={styles.radioText}>No</Text>
+                  </View>
+                </View>
+                <Text style={{ fontSize: 17, marginHorizontal: 10, marginTop: hp(3) }}>
+                  Phone Number
+                </Text>
+                <TextInput
+                  placeholder="Enter Phone number"
+                  placeholderTextColor="grey"
+                  style={{
+                    fontSize: 17,
+                    marginHorizontal: 10,
+                    borderBottomWidth: 1,
+                    marginTop: hp(1),
+                  }}
+                  value={phoneNo}
+                  onChangeText={(val)=>setValues({...values,phoneNo: val})}
+                  keyboardType="numeric"
+                  onBlur={errorHandler3}
+                />
+                {
+                  error3 === true ? <Text style={{color:"red",marginLeft:20,fontSize:12}}>* required field</Text> : null
+                }
+                <View style={{marginTop:40,flexDirection:"row",marginLeft:10}}>
+                  <Text>Already have an account?</Text>
+                  <Text style={{marginLeft:20,color:"#e0ab24"}} onPress={()=>navigation.navigate("sign")}>sign in here</Text>
+                </View>
+                <TouchableOpacity
+                  style={[styles.button3,{justifyContent:"center",alignItems:"center"}]}
+                  onPress={submitHandler}
+                >
+                  <Text style={styles.loremIpsum2}>Continue</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </View>
     </View>
   );
 };
@@ -180,15 +199,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scontainer: {
-    borderRadius: 30,
+    borderTopLeftRadius: 30,
     width: wp("130%"),
     backgroundColor: "#fff",
     marginTop: hp(8),
     height: hp("100%"),
+    flex:1
   },
   button3: {
     alignItems: "center",
-    marginTop: hp(10),
+    marginTop: hp(5),
+    marginBottom: hp(5),
     width: wp(60),
     height: hp(7),
     backgroundColor: "#fdb915",

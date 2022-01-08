@@ -5,7 +5,10 @@ import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 
 const price = "1050.00";
-export default function PaymentScreen({navigation}){
+export default function PaymentScreen({navigation,route}){
+
+    const navigateData = route.params;
+    // console.log(navigateData);
 
     const[activeIndex, setActiveIndex] = useState();
 
@@ -56,7 +59,7 @@ export default function PaymentScreen({navigation}){
                     </TouchableOpacity>
                 </View>
             </View>
-            <TouchableOpacity style={styles.proceed} activeOpacity={0.6} onPress={()=>navigation.navigate("Pickup Assigned")}>
+            <TouchableOpacity style={styles.proceed} activeOpacity={0.6} onPress={()=>navigation.navigate("Pickup Assigned",navigateData)}>
                 <Text style={styles.txtProceed}>Proceed to Payment</Text>
             </TouchableOpacity>
         </SafeAreaView>

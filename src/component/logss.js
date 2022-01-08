@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -12,8 +12,24 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 function Untitled({ navigation }) {
+
+  const [userData, setUserData] = useState({name:"",profileImg:"",email:"",phone:""});
+
+  useEffect(() => {
+    AsyncStorage.getItem('jwt').then(resp => {
+        if(resp !== null ){
+            const parsed = JSON.parse(resp).user;
+            setUserData({name:parsed.name, profileImg:parsed.profileImg,email:parsed.email,phone:parsed.phoneNo})
+        } else {
+            return null;
+        }
+    }).catch(err => console.log(err));
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.scrollArea}>
@@ -27,7 +43,7 @@ function Untitled({ navigation }) {
               resizeMode="contain"
               style={styles.image4}
             ></Image>
-            <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate("ArrangeDelivery")}>
+            <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate("ArrangeDelivery")} activeOpacity={0.8}>
               <View style={styles.image5Row}>
                 <Image
                   source={require("../image/home1.png")}
@@ -128,7 +144,7 @@ function Untitled({ navigation }) {
         <View style={styles.buttonRowFiller}></View>
         <View style={styles.rect3}>
           <View style={styles.image3Filler}></View>
-          <TouchableOpacity onPress={() => navigation.navigate("Account")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Account",userData)}>
             <Image
               source={require("../image/ic_profile.png")}
               resizeMode="contain"
@@ -165,8 +181,8 @@ const styles = StyleSheet.create({
   button2: {
     top: 278,
     left: 15,
-    width: 345,
-    height: 100,
+    // width: 345,
+    // height: 100,
     position: "absolute",
     backgroundColor: "rgba(254,254,254,1)",
     borderRadius: 10,
@@ -183,9 +199,9 @@ const styles = StyleSheet.create({
   loremIpsum: {
     // fontFamily: "roboto-700",
     color: "rgba(188,186,186,1)",
-    height: 40,
-    width: 195,
-    marginTop: 15,
+    // height: 40,
+    // width: 195,
+    // marginTop: 15,
   },
   arrangeDeliveryColumn: {
     width: 195,
@@ -194,7 +210,7 @@ const styles = StyleSheet.create({
     marginBottom: 9,
   },
   image5Row: {
-    height: 100,
+    // height: 100,
     flexDirection: "row",
     marginLeft: 5,
     marginRight: 61,
