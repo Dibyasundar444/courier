@@ -4,28 +4,33 @@
     "slug": "YourPostman24",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/appIcon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/appIcon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#fdb915"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 5
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourpostman24.app",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.748771280616-tfshincnhnomntsl165led9gnbgqdad0"
+        }
+      }
     },
     "android": {
-      "package": "com.idigitalservices.LoginScreen",
+      "package": "com.yourpostman24.app",
       "versionCode": 4
     },
-  
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/appIcon.png"
     }
   }
 }

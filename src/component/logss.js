@@ -34,7 +34,7 @@ function Untitled({ navigation }) {
     <View style={styles.container}>
       <View style={styles.scrollArea}>
         <ScrollView
-          horizontal={false}
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollArea_contentContainerStyle}
         >
           <View style={styles.image4Stack}>
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     marginTop: 11,
   },
   scrollArea_contentContainerStyle: {
-    height: hp("130%"),
+    height: hp("100%"),
     width: 600,
   },
   image4: {

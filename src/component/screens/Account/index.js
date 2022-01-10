@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, Alert, ScrollView, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialCommunityIcons, Ionicons, Foundation, MaterialIcons, } from '@expo/vector-icons';
 import { constData } from './Data.js';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const {height} = Dimensions.get("window");
 
 export default function Account({navigation,route}) {
     // console.log(Data);
     const [index, setIndex] = useState(0);
     const [points, setPoints] = useState("10");
-    const [userData, setUserData] = useState({name:"",profileImg:"",email:"",phone:""});
+    const [userData, setUserData] = useState({name:"",profileImg:"qwe",email:"",phone:""});
 
     // const navigateData = route.params;
 
-    // useEffect(() => {
-    //     AsyncStorage.getItem('jwt').then(resp => {
-    //         if(resp !== null ){
-    //             const parsed = JSON.parse(resp).user;
-    //             setUserData({name:parsed.name, profileImg:parsed.profileImg,email:parsed.email,phone:parsed.phoneNo})
-    //         } else {
-    //             return null;
-    //         }
-    //     }).catch(err => console.log(err));
-    // }, []);
+    useEffect(() => {
+        AsyncStorage.getItem('jwt').then(resp => {
+            if(resp !== null ){
+                const parsed = JSON.parse(resp).user;
+                setUserData({name:parsed.name, profileImg:parsed.profileImg,email:parsed.email,phone:parsed.phoneNo})
+            } else {
+                return null;
+            }
+        }).catch(err => console.log(err));
+    }, []);
 
     const navigateData={
         "name": userData.name,
@@ -62,7 +63,8 @@ export default function Account({navigation,route}) {
         } else {customAlert()}
     };
     const clickLogOut = async () => {
-        AsyncStorage.removeItem('jwt');
+        await AsyncStorage.removeItem('jwt');
+        navigation.navigate("register");
     };
     return(
         <SafeAreaView style={styles.container}>
@@ -91,41 +93,39 @@ export default function Account({navigation,route}) {
                 </TouchableOpacity>
             </View>
             <View style={styles.view2}>
-                <View style={styles.subView2}>
-                    <FlatList 
-                        data={constData}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={(item)=>(
+                <ScrollView style={styles.subView2} showsVerticalScrollIndicator={false}>
+                    {
+                        constData.map((item)=>(
                             <TouchableOpacity
-                                key={item.item.id}
+                                key={item.id}
                                 activeOpacity={0.8}
-                                onPress={()=>segmentClicked(item.item.id)}
-                                style={{flexDirection:"row",marginBottom:30}}
-                                active={index==item.item.id}
+                                onPress={()=>segmentClicked(item.id)}
+                                style={{flexDirection:"row",marginBottom:30,marginTop:item.id==0?30:0}}
+                                active={index==item.id}
                             >
                                 <View style={{marginTop:3}}>
                                 {
-                                    item.item.id == 0 ? <Ionicons name="location-sharp" size={24} color="#fdb915" />
+                                    item.id == 0 ? <Ionicons name="location-sharp" size={24} color="#fdb915" />
                                     :
-                                    item.item.id == 1 ? <Ionicons name="globe-outline" size={24} color="#fdb915" />
+                                    item.id == 1 ? <Ionicons name="globe-outline" size={24} color="#fdb915" />
                                     :
-                                    item.item.id == 2 ? <MaterialCommunityIcons name="email" size={24} color="#fdb915" style={{marginTop:2}} />
+                                    item.id == 2 ? <MaterialCommunityIcons name="email" size={24} color="#fdb915" style={{marginTop:2}} />
                                     :
-                                    item.item.id == 3 ? <Foundation name="clipboard-notes" size={24} style={{marginTop:2,marginLeft:5}} color="#fdb915" />
+                                    item.id == 3 ? <Foundation name="clipboard-notes" size={24} style={{marginTop:2,marginLeft:5}} color="#fdb915" />
                                     :
-                                    item.item.id == 4 ? <MaterialIcons name="alt-route" size={24} color="#fdb915" />
+                                    item.id == 4 ? <MaterialIcons name="alt-route" size={24} color="#fdb915" />
                                     :
                                     <MaterialIcons name="exit-to-app" size={24} color="#fdb915" style={{marginTop:2}} />
                                 }
                                 </View>
                                 <View style={{marginLeft:40}}>
-                                    <Text style={{fontSize:20,fontWeight:"600"}}>{item.item.heading}</Text>
-                                    <Text style={{color:"gray",flexWrap:"wrap",marginRight:50}}>{item.item.description}</Text>
+                                    <Text style={{fontSize:20,fontWeight:"600"}}>{item.heading}</Text>
+                                    <Text style={{color:"gray",flexWrap:"wrap",marginRight:50}}>{item.description}</Text>
                                 </View>
                             </TouchableOpacity>
-                        )}
-                    />
-                </View>
+                        ))
+                    }
+                </ScrollView>
             </View>
         </SafeAreaView>
     );
@@ -133,7 +133,7 @@ export default function Account({navigation,route}) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         backgroundColor: "#fdb915",
         justifyContent:"center"
     },
@@ -167,8 +167,9 @@ const styles = StyleSheet.create({
         backgroundColor:"#fff"
     },
     subView2: {
-        marginTop: 30,
-        marginLeft: 40
+        // marginTop: 30,
+        marginLeft: 40,
+        height: height/1.32
     },
     profile: {
         height: 70,

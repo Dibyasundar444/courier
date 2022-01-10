@@ -22,7 +22,6 @@
     "expo-app-loading": "^1.1.2",
     "expo-facebook": "~11.0.5",
     "expo-font": "~9.1.0",
-    "expo-google-app-auth": "^8.2.2",
     "expo-image-picker": "~10.1.4",
     "expo-status-bar": "~1.0.4",
     "react": "16.13.1",
@@ -47,7 +46,9 @@
     "react-native-web": "^0.17.1",
     "react-native-web-swiper": "^2.2.1",
     "react-otp-input": "^2.4.0",
-    "rn-range-slider": "^2.0.4"
+    "rn-range-slider": "^2.0.4",
+    "expo-auth-session": "~3.2.3",
+    "expo-random": "~11.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

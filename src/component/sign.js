@@ -63,8 +63,8 @@ const sign = ({ navigation }) => {
     <View style={styles.container}>
       <View
         style={{
-          borderRadius: 30,
-          width: wp("130%"),
+          borderTopLeftRadius: 30,
+          // width: wp("130%"),
           backgroundColor: "#fff",
           marginTop: hp(15),
         }}
@@ -74,16 +74,17 @@ const sign = ({ navigation }) => {
             marginTop: hp(5),
             color: "grey",
             fontSize: 22,
-            marginLeft: wp(14),
+            textAlign:"center"
+            // marginLeft: wp(14),
           }}
         >
-          Sign in with phone number
+          Signin
         </Text>
         <TextInput
           placeholder="Email Address"
           style={{
             marginTop: hp(10),
-            fontSize: 25,
+            fontSize: 18,
             marginHorizontal: 23,
             borderBottomWidth: 1,
           }}
@@ -99,7 +100,7 @@ const sign = ({ navigation }) => {
           placeholder="Password"
           style={{
             marginTop: hp(10),
-            fontSize: 25,
+            fontSize: 18,
             marginHorizontal: 23,
             borderBottomWidth: 1,
           }}
@@ -111,13 +112,15 @@ const sign = ({ navigation }) => {
         {
           error2 ? <Text style={{color:"red",marginLeft:20,fontSize:12}}>* required field</Text> : null
         }
-        <TouchableOpacity
-          style={styles.button3}
-          onPress={submitHandler}
-        >
-          <Text style={styles.loremIpsum2}>Continue</Text>
-        </TouchableOpacity>
-        <Text
+        <View style={{alignItems:"center"}}>
+          <TouchableOpacity
+            style={styles.button3}
+            onPress={submitHandler}
+          >
+            <Text style={styles.loremIpsum2}>Continue</Text>
+          </TouchableOpacity>
+        </View>
+        {/* <Text
           style={{
             color: "grey",
             marginVertical: 15,
@@ -125,44 +128,49 @@ const sign = ({ navigation }) => {
           }}
         >
           We'll send OTP for verification
-        </Text>
+        </Text> */}
         <Text
           style={{
             marginTop: hp(6),
-            marginHorizontal: wp(27),
+            // backgroundColor:"#000",
+            textAlign:"center",
+            // marginHorizontal: wp(27),
             fontSize: 20,
+            color:"gray"
           }}
         >
           or Continue with
         </Text>
-        <View style={{ flexDirection: "row", marginVertical: hp(10) }}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#2834a1",
-              padding: 10,
-              paddingHorizontal: 37,
-            }}
-          >
-            <Text style={{ color: "#fff" }}>Facebook</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#f54c6e",
-              padding: 10,
-              paddingHorizontal: 37,
-            }}
-          >
-            <Text style={{ color: "#fff" }}>Google</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#000",
-              padding: 10,
-              paddingHorizontal: 37,
-            }}
-          >
-            <Text style={{ color: "#fff" }}>Apple</Text>
-          </TouchableOpacity>
+        <View style={{height:hp(30),justifyContent:"flex-end"}}>
+          <View style={{ flexDirection: "row",justifyContent:"space-evenly",marginBottom:25 }}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#2834a1",
+                padding: 15,
+                paddingHorizontal: 37,
+              }}
+            >
+              <Text style={{ color: "#fff" }}>Facebook</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#f54c6e",
+                padding: 15,
+                paddingHorizontal: 37,
+              }}
+            >
+              <Text style={{ color: "#fff" }}>Google</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#000",
+                padding: 15,
+                paddingHorizontal: 37,
+              }}
+            >
+              <Text style={{ color: "#fff" }}>Apple</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
@@ -171,7 +179,7 @@ const sign = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: hp(20),
+    // height: hp(20),
     backgroundColor: "#e0ab24",
     flex: 1,
   },
@@ -182,7 +190,7 @@ const styles = StyleSheet.create({
     height: hp(7),
     backgroundColor: "#e0ab24",
     borderRadius: 16,
-    marginLeft: wp(18),
+    // marginLeft: wp(18),
   },
   loremIpsum2: {
     fontSize: 17,
