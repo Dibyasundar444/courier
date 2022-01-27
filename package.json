@@ -20,9 +20,13 @@
     "axios": "^0.24.0",
     "expo": "~41.0.1",
     "expo-app-loading": "^1.1.2",
+    "expo-auth-session": "~3.2.3",
+    "expo-clipboard": "~1.0.2",
     "expo-facebook": "~11.0.5",
     "expo-font": "~9.1.0",
     "expo-image-picker": "~10.1.4",
+    "expo-random": "~11.1.2",
+    "expo-sharing": "^9.1.2",
     "expo-status-bar": "~1.0.4",
     "react": "16.13.1",
     "react-country-flag": "^2.3.0",
@@ -46,9 +50,7 @@
     "react-native-web": "^0.17.1",
     "react-native-web-swiper": "^2.2.1",
     "react-otp-input": "^2.4.0",
-    "rn-range-slider": "^2.0.4",
-    "expo-auth-session": "~3.2.3",
-    "expo-random": "~11.1.2"
+    "rn-range-slider": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

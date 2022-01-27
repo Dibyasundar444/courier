@@ -12,9 +12,10 @@ import {
 } from "react-native-responsive-screen";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API } from "../../config";
 
 
-const sign = ({ navigation }) => {
+const Sign = ({ navigation }) => {
 
   const [error1, setError1] = useState(false);
   const [error2, setError2] = useState(false);
@@ -40,13 +41,13 @@ const sign = ({ navigation }) => {
     if (email=="" | password=="") {
       null
     }else {
-      axios.post("https://digicourierapp.herokuapp.com/user/login",{"email": email, "password": password})
-      .then((resp)=>{
+      axios.post(`${API}/login`,{"email": email, "password": password})
+      .then(async resp => {
         if(resp.status == 200){
           try {
             const jsonValue = JSON.stringify(resp.data);
-            AsyncStorage.setItem('jwt',jsonValue);
-            console.log(jsonValue);
+            await AsyncStorage.setItem('jwt',jsonValue);
+            // console.log(jsonValue);
           } catch (e) {
             console.log(e);
           }
@@ -56,6 +57,7 @@ const sign = ({ navigation }) => {
           console.log(resp.status);
         }
       })
+      .catch(e=>console.log(e))
     }
   };
 
@@ -64,9 +66,9 @@ const sign = ({ navigation }) => {
       <View
         style={{
           borderTopLeftRadius: 30,
-          // width: wp("130%"),
           backgroundColor: "#fff",
           marginTop: hp(15),
+          flex:1
         }}
       >
         <Text
@@ -106,7 +108,6 @@ const sign = ({ navigation }) => {
           }}
           value={password}
           onChangeText={(val)=>setPassword(val)}
-          keyboardType="numeric"
           onBlur={errorHandler2}
         />
         {
@@ -120,18 +121,15 @@ const sign = ({ navigation }) => {
             <Text style={styles.loremIpsum2}>Continue</Text>
           </TouchableOpacity>
         </View>
-        {/* <Text
-          style={{
-            color: "grey",
-            marginVertical: 15,
-            marginHorizontal: wp(24),
-          }}
-        >
-          We'll send OTP for verification
-        </Text> */}
+        <View style={{alignItems:"center",marginVertical:20}}>
+          <Text>Don't have an account?</Text>
+          <Text style={{color:"#e0ab24"}}
+            onPress={()=>navigation.navigate("register")}
+          >Register here</Text>
+        </View>
         <Text
           style={{
-            marginTop: hp(6),
+            // marginTop: hp(6),
             // backgroundColor:"#000",
             textAlign:"center",
             // marginHorizontal: wp(27),
@@ -141,13 +139,14 @@ const sign = ({ navigation }) => {
         >
           or Continue with
         </Text>
-        <View style={{height:hp(30),justifyContent:"flex-end"}}>
-          <View style={{ flexDirection: "row",justifyContent:"space-evenly",marginBottom:25 }}>
+        <View style={{height:hp(25)}}>
+          <View style={{ flexDirection: "row",justifyContent:"space-evenly", marginTop: 30 }}>
             <TouchableOpacity
               style={{
                 backgroundColor: "#2834a1",
                 padding: 15,
                 paddingHorizontal: 37,
+                borderRadius: 10
               }}
             >
               <Text style={{ color: "#fff" }}>Facebook</Text>
@@ -157,11 +156,12 @@ const sign = ({ navigation }) => {
                 backgroundColor: "#f54c6e",
                 padding: 15,
                 paddingHorizontal: 37,
+                borderRadius: 10
               }}
             >
               <Text style={{ color: "#fff" }}>Google</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{
                 backgroundColor: "#000",
                 padding: 15,
@@ -169,7 +169,7 @@ const sign = ({ navigation }) => {
               }}
             >
               <Text style={{ color: "#fff" }}>Apple</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       </View>
@@ -199,4 +199,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default sign;
+export default Sign;

@@ -52,15 +52,23 @@ export default function Account({navigation,route}) {
         setIndex(index);
         if (index==0) {
             navigation.navigate("Adresses");
-        } else if (index==1) {
+        } 
+        else if (index==1) {
             navigation.navigate("Language");
-        } else if (index==2){
+        }
+        else if (index==2) {
+            navigation.navigate("RateCalculator");        
+        }
+        else if (index==3){
             navigation.navigate("Contact");
-        } else if (index==3) {
+        } 
+        else if (index==4) {
             navigation.navigate("Terms");
-        } else if (index==4) {
+        } 
+        else if (index==5) {
             console.log(index);
-        } else {customAlert()}
+        } 
+        else {customAlert()}
     };
     const clickLogOut = async () => {
         await AsyncStorage.removeItem('jwt');
@@ -103,17 +111,19 @@ export default function Account({navigation,route}) {
                                 style={{flexDirection:"row",marginBottom:30,marginTop:item.id==0?30:0}}
                                 active={index==item.id}
                             >
-                                <View style={{marginTop:3}}>
+                                <View style={{marginTop:5}}>
                                 {
                                     item.id == 0 ? <Ionicons name="location-sharp" size={24} color="#fdb915" />
                                     :
                                     item.id == 1 ? <Ionicons name="globe-outline" size={24} color="#fdb915" />
                                     :
-                                    item.id == 2 ? <MaterialCommunityIcons name="email" size={24} color="#fdb915" style={{marginTop:2}} />
+                                    item.id == 2 ? <Ionicons name="calculator-sharp" size={24} color="#fdb915" />
                                     :
-                                    item.id == 3 ? <Foundation name="clipboard-notes" size={24} style={{marginTop:2,marginLeft:5}} color="#fdb915" />
+                                    item.id == 3 ? <MaterialCommunityIcons name="email" size={24} color="#fdb915" style={{marginTop:2}} />
                                     :
-                                    item.id == 4 ? <MaterialIcons name="alt-route" size={24} color="#fdb915" />
+                                    item.id == 4 ? <Foundation name="clipboard-notes" size={24} style={{marginTop:2,marginLeft:5}} color="#fdb915" />
+                                    :
+                                    item.id == 5 ? <MaterialIcons name="alt-route" size={24} color="#fdb915" />
                                     :
                                     <MaterialIcons name="exit-to-app" size={24} color="#fdb915" style={{marginTop:2}} />
                                 }

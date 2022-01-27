@@ -11,21 +11,26 @@ export const constData=[
     },
     {
         "id": "2",
+        "heading": "Rate Calculator",
+        "description": "Calculate Rate of your Package"
+    },
+    {
+        "id": "3",
         "heading": "Contact us",
         "description": "Contact us for any query & issue"
     },
     {
-        "id": "3",
+        "id": "4",
         "heading": "Terms & Conditions",
         "description": "Know our Terms & Conditions"
     },
     {
-        "id": "4",
+        "id": "5",
         "heading": "Share App",
         "description": "Share with friends & family"
     },
     {
-        "id": "5",
+        "id": "6",
         "heading": "Logout",
         "description": "signout from current account"
     }

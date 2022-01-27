@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image, ScrollView, Share } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { Ionicons, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
+import Clipboard from 'expo-clipboard';
+import * as Sharing from 'expo-sharing'; 
 
 
 const price = "1050.00";
@@ -14,10 +16,33 @@ const { width } = Dimensions.get("window")
 export default function PickupAssigned({navigation,route}){
 
     const navigateData = route.params;
-    // console.log(navigateData);
+    const [isOpen, setIsOpen] = useState(false);
+    const link = "https://link/will/be/here";
 
 
-    const proceed=()=>{};
+    const proceed=()=>{
+        setIsOpen(true);
+    };
+
+    const onShare = async () => {
+        try {
+          const result = await Share.share({
+            message: link,
+          });
+          if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+              // shared with activity type of result.activityType
+            } else {
+              // shared
+            }
+          } else if (result.action === Share.dismissedAction) {
+            // dismissed
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+    };
+    
 
     return(
         <SafeAreaView style={styles.container}>
@@ -30,7 +55,9 @@ export default function PickupAssigned({navigation,route}){
             <View style={styles.body}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{alignItems:"center",height:200,marginTop:20}}>
-                        <Image source={require("../../../../image/appIcon.png")} style={{resizeMode:"contain",width:"100%",height:"100%"}}/>
+                        <Image source={require("../../../../image/appIcon.png")} 
+                            style={{resizeMode:"contain",width:"100%",height:"100%"}}
+                        />
                     </View>
                     <Text style={{textAlign:"center",fontSize:16,fontWeight:"bold",marginTop:30}}>{text1}</Text>
                     <Text style={{textAlign:"center",fontSize:13,fontWeight:"bold",marginTop:20}}>{text2}</Text>
@@ -60,10 +87,37 @@ export default function PickupAssigned({navigation,route}){
                         </View>
                     </View>
                 </ScrollView>
+                
             </View>
             <TouchableOpacity style={styles.proceed} activeOpacity={0.6} onPress={proceed}>
                 <Text style={styles.txtProceed}>Track my courier</Text>
             </TouchableOpacity>
+            {isOpen ? 
+                <View style={{position:"absolute",left:0,right:0,top:0,bottom:0,justifyContent:"center",alignItems:"center",backgroundColor:"rgba(0,0,0,0.5)"}}>
+                    <View style={{backgroundColor:"#fff",borderRadius:10,height:200,width:"90%"}}>
+                        <Entypo name="circle-with-cross" size={32} color="red" style={{alignSelf:"flex-end",marginRight:0}} 
+                            onPress={()=>setIsOpen(false)}
+                        />
+                        <View style={{alignItems:"center",marginTop:10}}>
+                            <Text style={{fontWeight:"700",color:"#e0ab24"}}>Track my courier</Text>
+                            <View style={{width:"90%",backgroundColor:"#dce4f7",height:40,marginTop:10,borderRadius:20,flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
+                                <Text style={{marginLeft:10,color:"gray"}}>{link}</Text> 
+                                <TouchableOpacity onPress={()=>Clipboard.setString(link)}>
+                                    <Ionicons name="copy-outline" color="#e0ab24" size={24} style={{marginRight:10}} />
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity 
+                                style={{flexDirection:"row",alignItems:"center",borderRadius:5,backgroundColor:"#e0ab24",paddingVertical:5,paddingHorizontal:15,marginTop:20}}
+                                onPress={onShare}
+                            >
+                                <AntDesign name="sharealt" size={20} color="blue" />
+                                <Text style={{marginLeft:5,color:"#000"}}>Share</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            :
+            null}
         </SafeAreaView>
     );
 };
@@ -71,7 +125,7 @@ export default function PickupAssigned({navigation,route}){
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fdb915"
+        backgroundColor: "#e0ab24"
     },
     header: {
         marginLeft:10,

@@ -54,7 +54,7 @@ export default function ArrangeDelivery({navigation}){
         headers: {
             'Content-Type': 'application/json;charset=UTF-8',
             "Authorization": token,
-            }
+        }
     };
     const postData={
         "addresstodeli": rlocation,
@@ -77,13 +77,13 @@ export default function ArrangeDelivery({navigation}){
         rname: rname,
     }
     const onSubmit=()=>{
-        if(slocation=="" | rlocation=="" | Height=="" | width=="" | Length=="" | Weight=="" | Price=="" | Price==0){
+        if(slocation=="" || rlocation=="" || Height=="" || width=="" || Length=="" || Weight=="" || Price=="" || Price==0){
             alert("please enter the details");
         } else {
             axios.post(" https://digicourierapp.herokuapp.com/api/product",postData,axiosConfig)
             .then(res=>{
                 if(res.status==200){
-                    console.log(postData);
+                    // console.log(postData);
                     navigation.navigate("payment",navigateData);
                 } else console.log(res.status);               
             })
