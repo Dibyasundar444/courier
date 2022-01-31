@@ -72,7 +72,7 @@ export default function Account({navigation,route}) {
     };
     const clickLogOut = async () => {
         await AsyncStorage.removeItem('jwt');
-        navigation.navigate("register");
+        navigation.navigate("sign");
     };
     return(
         <SafeAreaView style={styles.container}>

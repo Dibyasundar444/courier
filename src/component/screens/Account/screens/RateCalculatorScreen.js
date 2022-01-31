@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from '@expo/vector-icons';
+import axios from "axios";
+import { API } from "../../../../../config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export default function RateCalculator({navigation}){
@@ -10,6 +13,42 @@ export default function RateCalculator({navigation}){
     const [width, setWidth] = useState("");
     const [length, setLength] = useState("");
     const [rate, setRate] = useState("0");
+    const [token, setToken] = useState("");
+    const [isResp, setIsResp] = useState(false);
+
+
+    useEffect(() => {
+        AsyncStorage.getItem('jwt').then(resp => {
+            if(resp !== null ){
+                const token = JSON.parse(resp).access_token;
+                setToken(token);
+            } else {
+                return null;
+            }
+        }).catch(err => console.log(err));
+    }, []);
+
+    let axiosConfig = {
+        headers: {
+            "Authorization": token,
+        }
+    };
+    let postData={
+        "height": Number(height),
+        "width": Number(width),
+        "length": Number(length)
+    };
+    const calculate=()=>{
+        setIsResp(true);
+        axios.post(`https://courrierapp.herokuapp.com/api/ratecalc`,postData,axiosConfig)
+        .then(resp=>{
+            setRate(resp.data);
+            setIsResp(false);
+        })
+        .catch(err=>{
+            console.log("error from server: ",err);
+        })
+    };
 
     return(
         <SafeAreaView style={styles.container}>
@@ -57,13 +96,16 @@ export default function RateCalculator({navigation}){
                 </View>
                 <View style={{alignItems:"center",marginTop:50}}>
                     <View style={styles.rate}>
-                        <Text style={{color:"#fdb915"}}>{rate}/-</Text>
+                        {
+                            isResp ?  <ActivityIndicator color="#fdb915" /> : <Text style={{color:"#fdb915"}}>{rate}/-</Text>
+                        }                      
                     </View>
                 </View>
                 <View style={styles.lastView}>
                     <TouchableOpacity 
                         style={styles.btn}
                         activeOpacity={0.6}
+                        onPress={calculate}
                     >
                         <Text style={styles.text}>Calculate</Text>
                     </TouchableOpacity>

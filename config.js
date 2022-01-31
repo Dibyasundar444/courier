@@ -1,1 +1,1 @@
-export const API = "https://digicourierapp.herokuapp.com/user";
+export const API = "https://courrierapp.herokuapp.com/user";

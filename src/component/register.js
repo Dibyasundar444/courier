@@ -15,7 +15,7 @@ import { RadioButton } from "react-native-paper";
 import axios from "axios";
 import { API } from "../../config";
 
-const register = ({ navigation }) => {
+const Register = ({ navigation }) => {
 
   const [error1, setError1] = useState(false);
   const [error2, setError2] = useState(false);
@@ -297,7 +297,7 @@ const register = ({ navigation }) => {
   );
 };
 
-export default register;
+export default Register;
 
 const styles = StyleSheet.create({
   container: {
