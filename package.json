@@ -13,6 +13,7 @@
     "@react-native-async-storage/async-storage": "^1.15.14",
     "@react-native-community/checkbox": "^0.5.8",
     "@react-native-community/masked-view": "0.1.10",
+    "@react-native-community/slider": "^4.2.0",
     "@react-navigation/bottom-tabs": "^5.11.11",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.5",
@@ -25,10 +26,14 @@
     "expo-facebook": "~11.0.5",
     "expo-font": "~9.1.0",
     "expo-image-picker": "~10.1.4",
+    "expo-localization": "~10.1.0",
     "expo-random": "~11.1.2",
     "expo-sharing": "^9.1.2",
     "expo-splash-screen": "^0.10.2",
     "expo-status-bar": "~1.0.4",
+    "expo-web-browser": "~9.1.0",
+    "firebase": "8.2.3",
+    "i18n-js": "^3.8.0",
     "react": "16.13.1",
     "react-country-flag": "^2.3.0",
     "react-dom": "16.13.1",
@@ -37,6 +42,7 @@
     "react-native-gesture-handler": "~1.10.2",
     "react-native-image-crop-picker": "^0.36.2",
     "react-native-maps": "0.27.1",
+    "react-native-maps-directions": "^1.8.0",
     "react-native-otp-verify": "^1.0.4",
     "react-native-paper": "^4.9.2",
     "react-native-raw-bottom-sheet": "^2.2.0",
@@ -51,7 +57,8 @@
     "react-native-web": "^0.17.1",
     "react-native-web-swiper": "^2.2.1",
     "react-otp-input": "^2.4.0",
-    "rn-range-slider": "^2.0.4"
+    "rn-range-slider": "^2.1.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

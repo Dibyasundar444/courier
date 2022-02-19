@@ -15,7 +15,7 @@ import ConfirmInfoScreen from "./Confirm";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const { height } = Dimensions.get("window")
+const { height } = Dimensions.get("window");
 
 export default function ArrangeDelivery({navigation}){
 
@@ -23,7 +23,6 @@ export default function ArrangeDelivery({navigation}){
     const [activeIndex, setActiveIndex] = useState(0);
     const [rname, setRname] = useState("");
     const [rnumber, setRnumber] = useState("");
-    //post data -->
     const [slocation, setSlocation] = useState("");
     const [activeAddress, setActiveAddress] = useState(0);
     const [rlocation, setRlocation] = useState("");
@@ -31,13 +30,18 @@ export default function ArrangeDelivery({navigation}){
     const [Height, setHeight] = useState("");
     const [width, setWidth] = useState("");
     const [Length, setLength] = useState("");
-    const [Weight, setWeight] = useState("");
+    const [Weight, setWeight] = useState(Number);
     const [switchValue, setSwitchValue] = useState(false);
     const [Price, setPrice] = useState("");
     const [Info, setInfo] = useState("");
-    const[delMode, setDelMode] = useState("Usual");
-    const[token, setToken] = useState("");
-    //<--
+    const [delMode, setDelMode] = useState("Usual");
+    const [token, setToken] = useState("");
+    const [indicator1, setIndicator1] = useState(false);
+    const [usualRate, setUsualRate] = useState("");
+    const [fastDel_Rate, setFastDel_Rate] = useState("");
+    const [superFastDel_rate, setSuperFastDel_rate] = useState("");
+
+    //<---------------------------
 
     useEffect(() => {
         AsyncStorage.getItem('jwt').then(resp => {
@@ -59,7 +63,7 @@ export default function ArrangeDelivery({navigation}){
     const postData={
         "addresstodeli": rlocation,
         "SedndingAddress": slocation,
-        "Distance":"",
+        "Distance": "",
         "Length": Number(Length),
         "Width": Number(width),
         "Height": Number(Height),
@@ -94,6 +98,26 @@ export default function ArrangeDelivery({navigation}){
     const segmentClicked=(index)=>{
         setActiveIndex(index);
     };
+
+    const calculate=()=>{
+        setIndicator1(true);
+        let body={
+            "height": Number(Height),
+            "width": Number(width),
+            "length": Number(Length)
+        };
+        axios.post(`https://courrierapp.herokuapp.com/api/ratecalc`,body,axiosConfig)
+        .then(resp=>{
+            setUsualRate(resp.data);
+            setIndicator1(false);
+            segmentClicked(3);
+        })
+        .catch(err=>{
+            console.log("error from server: ",err);
+        })
+    };
+
+
     const _renderItem=()=>{
         if(activeIndex==0){
             return(
@@ -123,7 +147,7 @@ export default function ArrangeDelivery({navigation}){
                     cType={cType}
                     Height={Height}
                     Weight={Weight}
-                    width={width}
+                    Width={width}
                     Length={Length}
                     switchValue={switchValue}
                     Price={Price}
@@ -136,7 +160,8 @@ export default function ArrangeDelivery({navigation}){
                     setSwitchValue={setSwitchValue}
                     setPrice={setPrice}
                     setInfo={setInfo}
-                    next={()=>segmentClicked(3)}
+                    indicator1={indicator1}
+                    next={calculate}
 
                 />
             )
@@ -156,6 +181,7 @@ export default function ArrangeDelivery({navigation}){
                     cWidth={width}
                     cWeight={Weight}
                     rName={rname}
+                    usualRate={usualRate}
                 />
             )
         }
@@ -177,19 +203,19 @@ export default function ArrangeDelivery({navigation}){
             <View style={{flexDirection:"row"}}>
                 <View style={{alignItems:"center",flex:0.25}}>
                     <TouchableOpacity style={[styles.button,{backgroundColor: activeIndex === 0 ? "#fff" : "#cca15c",marginTop:40}]}
-                        onPress={()=>segmentClicked(0)} active={activeIndex == 0}>
+                        onPress={()=>segmentClicked(0)}>
                         <Ionicons name="md-location-sharp" color={"#fdb915"} size={24} />
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.button,{backgroundColor: activeIndex === 1 ? "#fff" : "#cca15c",marginTop:20}]}
-                        onPress={()=>segmentClicked(1)} active={activeIndex == 1}>
+                        onPress={()=>segmentClicked(1)}>
                         <FontAwesome name="location-arrow" color={"#fdb915"} size={24} />
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.button,{backgroundColor: activeIndex === 2 ? "#fff" : "#cca15c",marginTop:20}]}
-                    onPress={()=>segmentClicked(2)} active={activeIndex == 2}>
+                    onPress={()=>segmentClicked(2)}>
                         <SimpleLineIcons name="handbag" color={"#fdb915"} size={20} />
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.button,{backgroundColor: activeIndex === 3 ? "#fff" : "#cca15c",marginTop:20}]}
-                    onPress={()=>segmentClicked(3)} active={activeIndex == 3}>
+                    onPress={()=>segmentClicked(3)}>
                         <Foundation name="clipboard-notes" color={"#fdb915"} size={28} />
                     </TouchableOpacity>
                 </View>

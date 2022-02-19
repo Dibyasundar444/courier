@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, Alert, ScrollView, Dimensions } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, Alert, ScrollView, Dimensions, Share } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialCommunityIcons, Ionicons, Foundation, MaterialIcons, } from '@expo/vector-icons';
 import { constData } from './Data.js';
@@ -19,6 +19,8 @@ export default function Account({navigation,route}) {
         AsyncStorage.getItem('jwt').then(resp => {
             if(resp !== null ){
                 const parsed = JSON.parse(resp).user;
+                // const parsed = JSON.parse(resp);
+                console.log("parsed",parsed);
                 setUserData({name:parsed.name, profileImg:parsed.profileImg,email:parsed.email,phone:parsed.phoneNo})
             } else {
                 return null;
@@ -66,7 +68,7 @@ export default function Account({navigation,route}) {
             navigation.navigate("Terms");
         } 
         else if (index==5) {
-            console.log(index);
+            onShare();
         } 
         else {customAlert()}
     };
@@ -74,20 +76,52 @@ export default function Account({navigation,route}) {
         await AsyncStorage.removeItem('jwt');
         navigation.navigate("sign");
     };
+    const onShare = async () => {
+        try {
+          const result = await Share.share({
+            message: "Link/to/share",
+          });
+          if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+              // shared with activity type of result.activityType
+            } else {
+              // shared
+            }
+          } else if (result.action === Share.dismissedAction) {
+            // dismissed
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+    };
+
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.subView1}>            
                 <View style={{flexDirection:"row",justifyContent:"space-between"}}>
                     <Text style={styles.subView1_text1}>Account</Text>
-                    <View style={{marginRight:20,}}>
-                        <Ionicons name="wallet" size={24} color="#000" style={{bottom:-5}} />
+                    <TouchableOpacity
+                     style={{marginRight:20,alignItems:"center"}}
+                        activeOpacity={0.7}
+                        onPress={()=>alert("coming soon")} 
+                    >
+                        <Image source={require('../../../image/Wallet.jpg')} style={{bottom:-3}} />
                         <Text style={{color:"#fff",fontSize:10}}>{points}</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={styles.subView1_1} onPress={()=>navigation.navigate("Profile",navigateData)}>
-                    <Image 
+                    {
+                        userData.profileImg ? 
+                        <Image 
                         source={{uri:userData.profileImg}}
-                        style={styles.profile}/>
+                        style={styles.profile}
+                        />
+                        :
+                        <Image 
+                        source={require("../../../image/Profile.png")}
+                        style={styles.profile}
+                        />
+                    }
                     <View style={styles.subView1_1_1}>
                         <View style={{flexDirection:"row",alignItems:"center"}}>
                             <Text style={styles.subView1_1_1_text1}>{userData.name}</Text>
@@ -195,4 +229,4 @@ const styles = StyleSheet.create({
         height: 100,
         width: 100
     }
-})
+});

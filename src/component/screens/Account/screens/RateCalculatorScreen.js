@@ -65,6 +65,7 @@ export default function RateCalculator({navigation}){
                 <View style={styles.content}>
                     <View style={{alignItems:"center"}}>
                         <Text style={{fontSize:16,fontWeight:"700"}}>Height</Text>
+                        <Text style={{fontSize:12,fontWeight:"500",color:"gray"}}>(cm)</Text>
                         <TextInput 
                             style={styles.input}
                             placeholder="00.00"
@@ -75,6 +76,7 @@ export default function RateCalculator({navigation}){
                     </View>
                     <View style={{alignItems:"center"}}>
                         <Text style={{fontSize:16,fontWeight:"700"}}>Width</Text>
+                        <Text style={{fontSize:12,fontWeight:"500",color:"gray"}}>(cm)</Text>
                         <TextInput 
                             style={styles.input}
                             placeholder="00.00"
@@ -85,6 +87,7 @@ export default function RateCalculator({navigation}){
                     </View>
                     <View style={{alignItems:"center"}}>
                         <Text style={{fontSize:16,fontWeight:"700"}}>Length</Text>
+                        <Text style={{fontSize:12,fontWeight:"500",color:"gray"}}>(cm)</Text>
                         <TextInput 
                             style={styles.input}
                             placeholder="00.00"

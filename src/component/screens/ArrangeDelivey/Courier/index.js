@@ -1,14 +1,21 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Dimensions, TouchableOpacity, Switch, ScrollView } from "react-native";
+import React, { useCallback, useState } from "react";
+import { View, Text, TextInput, StyleSheet, Dimensions, TouchableOpacity, Switch, ScrollView, ActivityIndicator } from "react-native";
 import { Ionicons, Entypo, MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
+// import Slider from '@react-native-community/slider';
+import RangeSlider from 'rn-range-slider';
+import Thumb from "../../Slider/Thumb";
+import Rail from "../../Slider/Rail";
+import RailSelected from "../../Slider/RailSelected";
+import Label from "../../Slider/Label";
+import Notch from "../../Slider/Notch";
 
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
 
 
-export default function CourierScreen({cType,setCType,Height, setHeight,width, setWidth,Length, 
-    setLength,Weight, setWeight,Price, setPrice,Info, setInfo,switchValue, setSwitchValue,next}){
+export default function CourierScreen({cType,setCType,Height, setHeight,Width, setWidth,Length, 
+    setLength,Price,Weight,setWeight, setPrice,Info, setInfo,switchValue, setSwitchValue,next,indicator1}){
 
     
 
@@ -16,12 +23,24 @@ export default function CourierScreen({cType,setCType,Height, setHeight,width, s
         setSwitchValue(value);
     };
 
+    const renderThumb = useCallback(() => <Thumb />, []);
+    const renderRail = useCallback(() => <Rail />, []);
+    const renderRailSelected = useCallback(() => <RailSelected />, []);
+    const renderLabel = useCallback(value => <Label text={value}/>, []);
+    const renderNotch = useCallback(() => <Notch />, []);
+    const handleValueChange = useCallback((val) => {
+    setWeight(val)
+    }, []);
+
 
     const categories = ["Envelope", "Box Pack", "Other"];
     
     return(
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={{marginBottom:150}}>
+        <View style={{borderTopLeftRadius:20,marginBottom:width/3.5}}>
+            <ScrollView 
+                showsVerticalScrollIndicator={false}
+                style={{borderTopLeftRadius:20}}
+            >
                 <View style={{marginHorizontal:20,marginTop:20}}>
                     <View style={{marginTop:10}}>
                         <Text style={{fontWeight:"bold"}}>Courier Type</Text>
@@ -39,74 +58,108 @@ export default function CourierScreen({cType,setCType,Height, setHeight,width, s
                     </View>
                 </View>
                 <View style={{borderWidth:2,borderColor:"#e8e4e3",marginTop:20,marginBottom:5}}/>
-                <View style={{flexDirection:"row",justifyContent:"space-evenly"}}>
+                <View style={{flexDirection:"row",justifyContent:"space-evenly",marginVertical:5}}>
                     <View style={{alignItems:"center"}}>
-                        <View style={{flexDirection:"row"}}>
-                            <AntDesign name="arrowup" size={18} color="#fdb915" />
-                            <Text style={{marginLeft:10}}>Height</Text>
-                        </View>
                         <View style={{flexDirection:"row",alignItems:"center"}}>
+                            <AntDesign name="arrowup" size={16} color="#fdb915" />
+                            <Text style={{marginLeft:5,color:"#aaa",fontWeight:"700",fontSize:13}}>Height</Text>
+                        </View>
+                        <View style={{marginTop: 5}}>
                             <TextInput 
-                                placeholder="00.00"
-                                style={{backgroundColor:"#e8e4e3",borderRadius:5,width:60,paddingLeft:5}}
+                                placeholder="0.0 cm"
+                                placeholderTextColor="#000"
+                                style={{borderRadius:5,width:60,paddingLeft:5}}
                                 value={Height}
                                 onChangeText={(value)=>setHeight(value)}
                                 keyboardType="numeric"
                             />
-                            <Text style={{marginLeft:2,fontSize:12}}>cm</Text>
                         </View>
                     </View>
                     <View style={{borderWidth:2,borderColor:"#e8e4e3"}}/>
                     <View style={{alignItems:"center"}}>
-                        <View style={{flexDirection:"row"}}>
-                            <AntDesign name="arrowright" size={18} color="#fdb915" />
-                            <Text style={{marginLeft:10}}>Width</Text>
-                        </View>
                         <View style={{flexDirection:"row",alignItems:"center"}}>
+                            <AntDesign name="arrowright" size={18} color="#fdb915" />
+                            <Text style={{marginLeft:5,color:"#aaa",fontWeight:"700",fontSize:13}}>Width</Text>
+                        </View>
+                        <View style={{marginTop:5}}>
                             <TextInput 
-                                placeholder="00.00"
-                                style={{backgroundColor:"#e8e4e3",borderRadius:5,width:60,paddingLeft:5}}
-                                value={width}
+                                placeholder="0.0 cm"
+                                placeholderTextColor="#000"
+                                style={{borderRadius:5,width:60,paddingLeft:5}}
+                                value={Width}
                                 onChangeText={(value)=>setWidth(value)}
                                 keyboardType="numeric"
                             />
-                            <Text style={{marginLeft:2,fontSize:12}}>cm</Text>
                         </View>
                     </View>
                     <View style={{borderWidth:2,borderColor:"#e8e4e3"}}/>
                     <View style={{alignItems:"center"}}>
-                        <View style={{flexDirection:"row"}}>
-                            <AntDesign name="swap" size={20} color="#fdb915" />
-                            <Text style={{marginLeft:10}}>Length</Text>
-                        </View>
                         <View style={{flexDirection:"row",alignItems:"center"}}>
+                            <AntDesign name="swap" size={20} color="#fdb915" />
+                            <Text style={{marginLeft:5,color:"#aaa",fontWeight:"700",fontSize:13}}>Length</Text>
+                        </View>
+                        <View style={{marginTop:5}}>
                             <TextInput 
-                                placeholder="00.00"
-                                style={{backgroundColor:"#e8e4e3",borderRadius:5,width:60,paddingLeft:5}}
+                                placeholder="0.0 cm"
+                                placeholderTextColor="#000"
+                                style={{borderRadius:5,width:60,paddingLeft:5}}
                                 value={Length}
                                 onChangeText={(value)=>setLength(value)}
                                 keyboardType="numeric"
                             />
-                            <Text style={{marginLeft:2,fontSize:12}}>cm</Text>
                         </View>
                     </View>
                 </View>
                 <View style={{borderWidth:2,borderColor:"#e8e4e3",marginTop:5}}/>
-                <View style={{flexDirection:"row",alignItems:"center",paddingVertical:50,marginLeft:20}}>
-                    <Text style={{fontWeight:"bold"}}>Weight</Text>
+                <View style={{paddingBottom:40,marginHorizontal:20,alignItems:"center"}}>
+                    <Text style={{fontWeight:"bold",marginTop:10,marginBottom:30}}>Weight: {Weight.toString().split('',4)}</Text>
                     <View style={{marginLeft:20}}>
-                        <TextInput 
+                        {/* <TextInput 
                             placeholder="00.00"
                             style={styles.weight}
                             value={Weight}
                             onChangeText={(value)=>setWeight(value)}
                             keyboardType="numeric"
+                        /> */}
+                        {/* <Slider
+                            style={{width: 200, height: 40}}
+                            minimumValue={0}
+                            maximumValue={20}
+                            maximumTrackTintColor="#000000"
+                            minimumTrackTintColor="#aaa"
+                            value={0}
+                            onValueChange={(val)=>setWeight(val)}
+                        /> */}
+                        <RangeSlider
+                            style={{width:200}}
+                            min={0}
+                            max={20}
+                            step={1}
+                            floatingLabel
+                            disableRange
+                            renderThumb={renderThumb}
+                            renderRail={renderRail}
+                            renderRailSelected={renderRailSelected}
+                            renderLabel={renderLabel}
+                            renderNotch={renderNotch}
+                            onValueChanged={handleValueChange}
                         />
+                        <View style={{position:"absolute",bottom:-20,left:0,right:0}}>
+                            <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginHorizontal:5}}>
+                                <Text style={{fontSize:12,fontWeight:"700",color:"gray"}}>0 kg</Text>
+                                <Text style={{fontSize:12,fontWeight:"700",color:"gray"}}>10 kg</Text>
+                                <Text style={{fontSize:12,fontWeight:"700",color:"gray"}}>20 kg</Text>
+                            </View>
+                        </View>
                     </View>
-                    <Text style={{fontSize:16,marginLeft:10}}>kg</Text>
+                    {/* <Text style={{fontSize:16,marginLeft:10}}>kg</Text> */}
                 </View>
                 <View style={{borderWidth:2,borderColor:"#e8e4e3"}}/>
-                <View style={{flexDirection:"row",justifyContent:"space-between",paddingVertical:20,marginLeft:10,alignItems:"center"}}>
+                <View style={{
+                    flexDirection:"row",justifyContent:"space-between",
+                    paddingVertical:20,marginLeft:10,alignItems:"center"
+                    }}
+                >
                     <Text style={{fontWeight:"bold"}}>Secure The Package</Text>
                     <View style={{flexDirection:"row",alignItems:"center"}}>
                         <View>
@@ -147,11 +200,15 @@ export default function CourierScreen({cType,setCType,Height, setHeight,width, s
                 <View style={{borderWidth:2,borderColor:"#e8e4e3"}}/>
                 <View style={{alignItems:"flex-end",marginRight:10}}>
                     <TouchableOpacity style={styles.continue} onPress={next}>
-                        <Text style={{color:"#fff",fontSize:16}}>Continue ↓</Text>
+                        {
+                            indicator1 ? <ActivityIndicator color="#fff" />
+                            :
+                            <Text style={{color:"#fff",fontSize:16}}>Continue ↓</Text>
+                        }
                     </TouchableOpacity>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     );
 };
 
@@ -172,14 +229,16 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         borderRadius:20,
         elevation:9,
-        borderWidth:0.1
+        borderWidth: 1,
+        borderColor: "#aaa"
     },
     setIndex: {
         backgroundColor: "#fdb915",
+        borderWidth: 0
     },
     continue: {
         backgroundColor:"#fdb915",
-        marginTop:20,
+        marginVertical:20,
         height:40,
         borderRadius:20,
         alignItems:"center",

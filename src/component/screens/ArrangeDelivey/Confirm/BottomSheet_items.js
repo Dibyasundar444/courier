@@ -3,45 +3,51 @@ import { View, Text, StyleSheet,Dimensions, TouchableOpacity } from "react-nativ
 import { FontAwesome } from '@expo/vector-icons';
 
 const { width } = Dimensions.get("window");
-const price1="1050.00";
-const price2="2050.00";
-const price3="3050.00";
 
 
 
-export default function BottmSheet_item({delMode,setDelMode,closeSheet}){
+export default function BottmSheet_item({delMode,setDelMode,closeSheet,usualRate,fastDel_Rate,superFastDel_rate}){
 
     const segmentClicked=(index)=>{
         setDelMode(index);
     };
+    const price1=usualRate;
+    const price2=fastDel_Rate;
+    const price3=superFastDel_rate;
     return(
         <>
             <View style={{flex:1}}>
                 <Text style={styles.view1}>Select Delivery Mode</Text>
                 <View style={styles.view2}>
                     <TouchableOpacity style={styles.view2_1} active={delMode=="Usual"} onPress={()=>segmentClicked("Usual")} activeOpacity={0.6}>
-                        <FontAwesome name={delMode==="Usual" ? "dot-circle-o":"circle-thin"} size={26} color="#fdb915" />
-                        <View style={{flexWrap:"wrap",marginLeft:10}}>
-                            <Text style={{fontSize:16}}>Usual Delivery</Text>
-                            <Text style={styles.des}>Usually takes 2-3 days</Text>
-                            <Text style={styles.des}>to deliver</Text>
+                        <View style={{flexDirection:"row",alignItems:"center"}}>
+                            <FontAwesome name={delMode==="Usual" ? "dot-circle-o":"circle-thin"} size={26} color="#fdb915" />
+                            <View style={{flexWrap:"wrap",marginLeft:30}}>
+                                <Text style={{fontSize:16}}>Usual Delivery</Text>
+                                <Text style={styles.des}>Usually takes 2-3 days</Text>
+                                <Text style={styles.des}>to deliver</Text>
+                            </View>
                         </View>
                         <Text style={styles.price}>₹{price1}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.view2_1} active={delMode=="Fast"} onPress={()=>segmentClicked("Fast")} activeOpacity={0.6}>
-                        <FontAwesome name={delMode=="Fast" ? "dot-circle-o":"circle-thin"} size={26} color="#fdb915" />
-                        <View style={{flexWrap:"wrap",marginLeft:10}}>
-                            <Text style={{fontSize:16}}>Fast Delivery</Text>
-                            <Text style={styles.des}>Assured 6 hour delivery</Text>
+                        <View style={{flexDirection:"row",alignItems:"center"}}>
+                            <FontAwesome name={delMode=="Fast" ? "dot-circle-o":"circle-thin"} size={26} color="#fdb915" />
+                            <View style={{flexWrap:"wrap",marginLeft:30}}>
+                                <Text style={{fontSize:16}}>Fast Delivery</Text>
+                                <Text style={styles.des}>Assured 6 hour delivery</Text>
+                            </View>
                         </View>
                         <Text style={styles.price}>₹{price2}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.view2_1} active={delMode=="Superfast"} onPress={()=>segmentClicked("Superfast")} activeOpacity={0.6}>
-                        <FontAwesome name={delMode=="Superfast" ? "dot-circle-o":"circle-thin"} size={26} color="#fdb915" />
-                        <View style={{flexWrap:"wrap",marginLeft:10}}>
-                            <Text style={{fontSize:16}}>Superfast Delivery</Text>
-                            <Text style={styles.des}>Dedicated delivery boy</Text>
-                            <Text style={styles.des}>delivers in 2-3 hours</Text>
+                        <View style={{flexDirection:"row",alignItems:"center"}}>
+                            <FontAwesome name={delMode=="Superfast" ? "dot-circle-o":"circle-thin"} size={26} color="#fdb915" />
+                            <View style={{flexWrap:"wrap",marginLeft:30}}>
+                                <Text style={{fontSize:16}}>Superfast Delivery</Text>
+                                <Text style={styles.des}>Dedicated delivery boy</Text>
+                                <Text style={styles.des}>delivers in 2-3 hours</Text>
+                            </View>
                         </View>
                         <Text style={styles.price}>₹{price3}</Text>
                     </TouchableOpacity>

@@ -4,6 +4,9 @@ import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SplashScreen from 'expo-splash-screen';
+// import { initializeApp } from "firebase/app";
+import firebase from "firebase/app";
+
 
 
 import logs from "./src/component/logs";
@@ -25,9 +28,11 @@ import PickupAssigned from "./src/component/screens/ArrangeDelivey/Payment/Picku
 import Verification from "./src/component/Verification";
 import Sign from "./src/component/sign";
 import RateCalculator from "./src/component/screens/Account/screens/RateCalculatorScreen";
+import ChooseCustomer from "./src/component/ChooseCustomer";
+import { firebaseConfig } from "./firebase-config";
 
 
-
+firebase.initializeApp(firebaseConfig);
 
 export default function App(){
 
@@ -98,6 +103,7 @@ export default function App(){
           <Stack.Screen name="Map" component={MyMap} />
           <Stack.Screen name="Pickup Assigned" component={PickupAssigned} />
           <Stack.Screen name="RateCalculator" component={RateCalculator} />
+          <Stack.Screen name="ChooseCustomer" component={ChooseCustomer} />
         </Stack.Navigator>
       </View>
     </NavigationContainer>

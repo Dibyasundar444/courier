@@ -14,7 +14,7 @@ const { width } = Dimensions.get("window");
 
 
 export default function ConfirmInfoScreen({onSubmit,delMode,setDelMode,sLocation,rLocation,
-    courierType,secured,cHeight,cInfo,cLength,cWidth,cWeight,rName}){
+    courierType,secured,cHeight,cInfo,cLength,cWidth,cWeight,rName,usualRate,fastDel_Rate,superFastDel_rate}){
 
     const refRBSheet = useRef();
     const navigation = useNavigation();
@@ -114,6 +114,9 @@ export default function ConfirmInfoScreen({onSubmit,delMode,setDelMode,sLocation
                         delMode={delMode}
                         setDelMode={setDelMode}
                         closeSheet={()=>refRBSheet.current.close()}
+                        usualRate={usualRate}
+                        fastDel_Rate={fastDel_Rate}
+                        superFastDel_rate={superFastDel_rate}
                     />
                 </RBSheet>
                 <View style={{marginLeft:20,marginVertical:10}}>
@@ -121,7 +124,7 @@ export default function ConfirmInfoScreen({onSubmit,delMode,setDelMode,sLocation
                     <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginRight:10}}>
                         <Text style={{fontSize:18}}>{delMode}</Text>
                         <View style={{flexDirection:"row",alignItems:"center"}}>
-                            <Text style={{fontSize:18,marginRight:10}}>₹1050.00</Text>
+                            <Text style={{fontSize:18,marginRight:10}}>₹{usualRate}</Text>
                             <AntDesign name="caretdown" size={22} style={{top:-2}}color="gray" />
                         </View>
                     </View>
